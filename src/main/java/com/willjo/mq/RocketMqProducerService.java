@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
  * @author lizhuo
  * @since 2019/2/16 17:46
  */
-
 public class RocketMqProducerService implements SendCallback {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RocketMqProducerService.class);
