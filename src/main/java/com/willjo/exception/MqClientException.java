@@ -4,7 +4,7 @@ package com.willjo.exception;
 /**
  * mq 客户端异常
  *
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/1/5 下午9:14
  **/
 

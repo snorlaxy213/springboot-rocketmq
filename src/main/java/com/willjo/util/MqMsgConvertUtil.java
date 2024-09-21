@@ -4,7 +4,7 @@ import java.io.*;
 
 
 /**
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/1/5 下午9:22
  **/
 public class MqMsgConvertUtil {

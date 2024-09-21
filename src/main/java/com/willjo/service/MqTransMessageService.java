@@ -10,7 +10,7 @@ import java.util.List;
  * 服务类
  * </p>
  *
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019-02-23
  */
 public interface MqTransMessageService extends IService<MqTransMessageEntity> {

@@ -17,7 +17,7 @@ import java.util.Enumeration;
  * 全局唯一ID生成器，27位：13位毫秒数时间戳（无格式化）+9位机器码和进程号+5位循环序列号
  * </p>
  *
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/2/19 11:35
  */
 

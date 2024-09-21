@@ -3,7 +3,7 @@ package com.willjo.util;
 import java.io.Serializable;
 
 /**
- * @author lizhuo
+ * @author Grio Vino
  * @since 2020/3/17 15:28
  */
 public final class RegexType implements Serializable {

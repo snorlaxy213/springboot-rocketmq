@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 /**
  * spring 启动成功后初始化消费者
  *
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/1/4 下午10:14
  **/
 @Slf4j

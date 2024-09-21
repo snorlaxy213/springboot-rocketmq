@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 /**
  * 启用mq 注解
  *
- * @author lizhuo
+ * @author Grio Vino
  * @since 2020/3/17 15:25
  */
 @Target(ElementType.TYPE)

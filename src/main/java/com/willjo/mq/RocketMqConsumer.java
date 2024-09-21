@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * 消费者启动类
  *
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/1/4 下午10:15
  **/
 public class RocketMqConsumer {

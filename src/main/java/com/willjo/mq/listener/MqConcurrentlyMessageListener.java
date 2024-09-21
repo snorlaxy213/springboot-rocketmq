@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/1/5 下午9:27
  **/
 @RocketMqListener(topic = MqConstant.Top.PAY_TOPIC, consumerGroup = ConsumeGroup.PAY_GROUP)

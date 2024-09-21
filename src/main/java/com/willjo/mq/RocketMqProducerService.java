@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/2/16 17:46
  */
 public class RocketMqProducerService implements SendCallback {

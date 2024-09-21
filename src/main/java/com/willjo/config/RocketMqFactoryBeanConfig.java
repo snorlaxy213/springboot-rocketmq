@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * 创建生产者和消费者的工厂bean
  *
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/1/4 下午10:14
  **/
 public class RocketMqFactoryBeanConfig {

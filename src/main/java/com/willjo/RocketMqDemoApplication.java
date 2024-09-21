@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/2/16 17:46
  */
 @EnableRocketMq

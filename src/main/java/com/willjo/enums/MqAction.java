@@ -4,7 +4,7 @@ package com.willjo.enums;
 /**
  * 消息确认枚举
  *
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/1/5 下午8:55
  **/
 public enum MqAction {

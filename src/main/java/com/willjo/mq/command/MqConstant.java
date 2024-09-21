@@ -1,7 +1,7 @@
 package com.willjo.mq.command;
 
 /**
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/2/16 17:46
  */
 public class MqConstant {

@@ -1,7 +1,7 @@
 package com.willjo.exception;
 
 /**
- * @author lizhuo
+ * @author Grio Vino
  * @since 2019/1/5 下午9:24
  **/
 public class MqContextException extends Throwable {

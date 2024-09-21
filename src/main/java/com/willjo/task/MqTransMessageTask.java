@@ -20,7 +20,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 /**
  * mq 事务消息定时任务
  *
- * @author lizhuo
+ * @author Grio Vino
  * @since 2020/4/1 11:30
  */
 @Component
