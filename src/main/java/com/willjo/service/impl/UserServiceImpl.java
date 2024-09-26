@@ -1,18 +1,19 @@
 package com.willjo.service.impl;
 
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.willjo.dal.entity.UserEntity;
 import com.willjo.dal.mapper.UserMapper;
 import com.willjo.mq.command.MqConstant;
 import com.willjo.service.MqTransMessageService;
 import com.willjo.service.UserService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -34,7 +35,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     @Autowired
     private MqTransMessageService mqTransMessageService;
 
-
     @Override
     public UserEntity selectById(Long id) {
         return super.selectById(id);
@@ -51,15 +51,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     public Boolean transMessageSuccess() {
         //保存用户信息
         saveUser();
-        LOGGER.info("begin send trans message");
-        mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_TAG,
-            "{\"userName\": \"WillJoSuccess\"}");
+        LOGGER.info("begin transMessageSuccess");
+        mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_TAG, "{\"userName\": \"WillJoSuccess\"}");
         try {
             TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             LOGGER.error(e.getMessage());
         }
-        LOGGER.info(" end send tran message");
+        LOGGER.info("end transMessageSuccess");
         return Boolean.TRUE;
     }
 
@@ -75,11 +74,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     public Boolean transMessageError() throws Exception {
         //保存用户信息
         saveUser();
-        LOGGER.info("begin send trans message");
+        LOGGER.info("begin transMessageError");
         mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_TAG,
             "{\"userName\": \"WillJoError\"}");
         TimeUnit.SECONDS.sleep(10);
-        LOGGER.info(" end send tran message");
+        LOGGER.info(" end transMessageError");
         throw new RuntimeException();
     }
 }

@@ -2,7 +2,7 @@ package com.willjo.mq;
 
 /**
  * @author willJo
- * @since 2020/12/16
+ * @since 2024-09-26
  */
 public class MessageLock {
 

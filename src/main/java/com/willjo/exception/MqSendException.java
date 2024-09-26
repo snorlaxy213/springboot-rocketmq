@@ -4,7 +4,7 @@ package com.willjo.exception;
  * mq 消息发送异常类
  *
  * @author Grio Vino
- * @since 2019/2/17 11:42
+ * @since 2024-09-26
  */
 public class MqSendException extends RuntimeException {
 

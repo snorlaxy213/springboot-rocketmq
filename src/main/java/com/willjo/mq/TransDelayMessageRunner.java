@@ -7,8 +7,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 
 /**
- * @author willJo
- * @since 2020/12/30
+ * @author Grio vino
+ * @since 2024-09-26
  */
 public class TransDelayMessageRunner implements ApplicationListener<ApplicationReadyEvent> {
 
@@ -23,7 +23,7 @@ public class TransDelayMessageRunner implements ApplicationListener<ApplicationR
                     logger.info("delay message poll ,message={}", messageDelay);
                     MessageQueue.priorityQueue.put(messageDelay);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    logger.error("delay message poll error", e);
                 }
 
             }

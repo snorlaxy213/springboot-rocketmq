@@ -1,9 +1,14 @@
 package com.willjo.exception;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author Grio Vino
- * @since 2019/1/5 下午9:24
+ * @since 2024-09-26
  **/
+@Setter
+@Getter
 public class MqContextException extends Throwable {
 
     private String messageId;
@@ -12,28 +17,5 @@ public class MqContextException extends Throwable {
 
     public MqContextException() {
     }
-
-    public String getMessageId() {
-        return this.messageId;
-    }
-
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
-    }
-
-    public String getTopic() {
-        return this.topic;
-    }
-
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
-
-    public MqClientException getException() {
-        return this.exception;
-    }
-
-    public void setException(MqClientException exception) {
-        this.exception = exception;
-    }
+    
 }

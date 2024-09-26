@@ -18,12 +18,11 @@ import java.util.Enumeration;
  * </p>
  *
  * @author Grio Vino
- * @since 2019/2/19 11:35
+ * @since 2024-09-26
  */
 
 public class GeneratorId {
-
-
+    
     public static void main(String[] args) {
 
         long a = System.currentTimeMillis();

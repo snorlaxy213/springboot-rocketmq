@@ -9,7 +9,7 @@ import org.apache.rocketmq.common.message.MessageExt;
  * 有顺序消息监听
  *
  * @author Grio Vino
- * @since 2019/1/5 下午8:55
+ * @since 2024-09-26
  **/
 public interface MessageOrderListener {
 

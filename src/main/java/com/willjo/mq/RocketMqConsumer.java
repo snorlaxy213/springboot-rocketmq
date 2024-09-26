@@ -25,7 +25,7 @@ import java.util.Map;
  * 消费者启动类
  *
  * @author Grio Vino
- * @since 2019/1/4 下午10:15
+ * @since 2024-09-26
  **/
 public class RocketMqConsumer {
 
@@ -35,14 +35,12 @@ public class RocketMqConsumer {
     private volatile boolean init = false;
     private RocketMqProperties configuration;
     private Map<String, DefaultMQPushConsumer> consumerMap;
-
-
+    
     public RocketMqConsumer(RocketMqProperties configuration, ApplicationContext context) {
         this.context = context;
         this.configuration = configuration;
     }
-
-
+    
     public synchronized void start() throws Exception {
         if (this.init) {
             LOGGER.warn("请不要重复初始化RocketMQ消费者");

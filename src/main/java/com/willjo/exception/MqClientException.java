@@ -5,7 +5,7 @@ package com.willjo.exception;
  * mq 客户端异常
  *
  * @author Grio Vino
- * @since 2019/1/5 下午9:14
+ * @since 2024-09-26
  **/
 
 public class MqClientException extends RuntimeException {

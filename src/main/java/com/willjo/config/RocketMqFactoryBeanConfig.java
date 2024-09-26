@@ -19,23 +19,21 @@ public class RocketMqFactoryBeanConfig {
      * @param configuration RocketMq配置属性，用于初始化消费者
      * @param context 应用上下文，用于消费者在Spring环境中的集成
      * @return 返回创建的RocketMq消费者实例
-     * @throws Exception 如果创建过程中发生错误，抛出异常
      */
     @Bean
-    public RocketMqConsumer createConsumer(RocketMqProperties configuration,
-        ApplicationContext context) {
+    public RocketMqConsumer defaultConsumer(RocketMqProperties configuration, ApplicationContext context) {
         return new RocketMqConsumer(configuration, context);
     }
 
     /**
      * 创建并启动一个默认的RocketMQ生产者
+     * 该方法首先检查rocketmq.nameSrvAddress参数是否必需，然后使用RocketMqProperties配置
+     * 创建DefaultMQProducer实例，设置Name Server地址，设置实例名称为当前时间毫秒数，
+     * 并启动生产者实例最后返回该实例如果Name Server地址未配置，则抛出异常
      *
      * @param configuration RocketMQ配置属性对象，用于获取配置信息
      * @return 返回一个启动了的DefaultMQProducer实例
      * @throws Exception 如果配置错误可能会抛出异常
-     * 该方法首先检查rocketmq.nameSrvAddress参数是否必需，然后使用RocketMqProperties配置
-     * 创建DefaultMQProducer实例，设置Name Server地址，设置实例名称为当前时间毫秒数，
-     * 并启动生产者实例最后返回该实例如果Name Server地址未配置，则抛出异常
      */
     @Bean
     public DefaultMQProducer defaultProducer(RocketMqProperties configuration) throws Exception {

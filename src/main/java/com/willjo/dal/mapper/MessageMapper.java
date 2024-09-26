@@ -1,12 +1,9 @@
 package com.willjo.dal.mapper;
 
-import com.willjo.dal.entity.MqTransMessageEntity;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.willjo.dal.entity.MqTransMessageEntity;
 
 /**
- * <p>
- * Mapper 接口
- * </p>
  *
  * @author Grio Vino
  * @since 2019-02-23

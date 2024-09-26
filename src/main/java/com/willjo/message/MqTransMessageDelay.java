@@ -5,8 +5,8 @@ import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author willJo
- * @since 2020/12/29
+ * @author Grio vino
+ * @since 2024-09-26
  */
 public class MqTransMessageDelay extends MqTransMessage implements Delayed {
     /**
@@ -18,25 +18,23 @@ public class MqTransMessageDelay extends MqTransMessage implements Delayed {
      * 最大失败次数，超过这个次数，就让定时任务来发送好了
      */
     public static final int MAX_FAIL_COUNT = DELAY_TIME_WHEEL.length;
-
-
+    
     /**
      * 单位毫秒
      */
-    private long delayTime;
+    private final long delayTime;
 
     public MqTransMessageDelay(Long id, String topic, String tag, String message, Date createTime, Date updateTime, Integer failCount) {
         super(id, topic, tag, message, createTime, updateTime, failCount);
         if (failCount >= MAX_FAIL_COUNT) {
             // 超过时间轮了，就以最大的等待时间
-            this.delayTime = System.currentTimeMillis() + DELAY_TIME_WHEEL[MAX_FAIL_COUNT - 1] * 1000;
+            this.delayTime = System.currentTimeMillis() + DELAY_TIME_WHEEL[MAX_FAIL_COUNT - 1] * 1000L;
         } else {
-            this.delayTime = System.currentTimeMillis() + DELAY_TIME_WHEEL[failCount] * 1000;
+            this.delayTime = System.currentTimeMillis() + DELAY_TIME_WHEEL[failCount] * 1000L;
         }
 
     }
-
-
+    
     @Override
     public long getDelay(TimeUnit unit) {
         return unit.convert(delayTime-System.currentTimeMillis(), TimeUnit.MILLISECONDS);

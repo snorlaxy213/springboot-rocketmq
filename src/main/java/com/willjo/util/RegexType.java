@@ -9,7 +9,7 @@ import java.io.Serializable;
 public final class RegexType implements Serializable {
 
     /**
-     *
+     * 序列化版本号
      */
     private static final long serialVersionUID = 5761671720611507719L;
     /**

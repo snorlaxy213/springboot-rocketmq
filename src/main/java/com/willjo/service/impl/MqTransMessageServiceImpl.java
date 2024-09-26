@@ -1,13 +1,13 @@
 package com.willjo.service.impl;
 
-import com.willjo.dal.entity.MqTransMessageEntity;
-import com.willjo.dal.mapper.MessageMapper;
-import com.willjo.mq.MessageQueue;
-import com.willjo.service.MqTransMessageService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
+import com.willjo.dal.entity.MqTransMessageEntity;
+import com.willjo.dal.mapper.MessageMapper;
+import com.willjo.mq.MessageQueue;
+import com.willjo.service.MqTransMessageService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,24 +20,19 @@ import java.util.Optional;
 
 
 /**
- * <p>
  * 服务实现类
- * </p>
  *
  * @author Grio Vino
- * @since 2019-02-23
+ * @since 2024-09-26
  */
 @Service
-public class MqTransMessageServiceImpl extends
-        ServiceImpl<MessageMapper, MqTransMessageEntity> implements
-        MqTransMessageService {
+public class MqTransMessageServiceImpl extends ServiceImpl<MessageMapper, MqTransMessageEntity> implements MqTransMessageService {
 
     @Autowired
     private MessageMapper messageMapper;
 
     private static final int MAX_MESSAGE_NUM = 1000;
-
-
+    
     @Override
     public MqTransMessageEntity selectById(Long id) {
         return super.selectById(id);
@@ -51,7 +46,7 @@ public class MqTransMessageServiceImpl extends
     @Override
     public MqTransMessageEntity getByMsgId(String msgid) {
         Wrapper<MqTransMessageEntity> wrapper = new EntityWrapper<>();
-        wrapper.where("msgid={0}", msgid);
+        wrapper.where("MsgId={0}", msgid);
         return super.selectOne(wrapper);
     }
 

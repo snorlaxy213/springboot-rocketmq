@@ -1,19 +1,16 @@
 package com.willjo.dal.entity;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
- * <p>
- *
- * </p>
- *
  * @author Grio Vino
  * @since 2019-02-23
  */
@@ -29,8 +26,7 @@ public class UserEntity extends Model<UserEntity> {
     private String username;
 
     private Integer age;
-
-
+    
     /**
      * 主键值
      */

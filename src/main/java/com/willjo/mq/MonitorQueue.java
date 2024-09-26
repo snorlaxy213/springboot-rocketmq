@@ -2,11 +2,10 @@ package com.willjo.mq;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.stereotype.Component;
 
 /**
- * @author willJo
- * @since 2020/12/30
+ * @author Grio vino
+ * @since 2024-09-26
  */
 public class MonitorQueue implements ApplicationListener<ApplicationReadyEvent> {
 

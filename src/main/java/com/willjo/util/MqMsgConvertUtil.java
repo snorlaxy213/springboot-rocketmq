@@ -5,7 +5,7 @@ import java.io.*;
 
 /**
  * @author Grio Vino
- * @since 2019/1/5 下午9:22
+ * @since 2024-09-26
  **/
 public class MqMsgConvertUtil {
 

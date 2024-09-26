@@ -1,7 +1,7 @@
 package com.willjo.service;
 
-import com.willjo.dal.entity.UserEntity;
 import com.baomidou.mybatisplus.service.IService;
+import com.willjo.dal.entity.UserEntity;
 
 /**
  * <p>
@@ -12,8 +12,7 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2019-02-23
  */
 public interface UserService extends IService<UserEntity> {
-
-
+    
     /**
      * 获取实体
      *

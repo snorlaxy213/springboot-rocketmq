@@ -10,14 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
 import java.util.Objects;
 
 /**
- * @author willJo
- * @since 2020/12/16
+ * @author Grio Vino
+ * @since 2024-09-26
  */
 public class TransMessageRunner implements ApplicationListener<ApplicationReadyEvent> {
 
@@ -33,10 +32,7 @@ public class TransMessageRunner implements ApplicationListener<ApplicationReadyE
      * 事务最大等待时间，单位为秒
      */
     public static final int TRANS_MAX_WAITING_TIME = 30;
-
-
-
-
+    
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         System.out.println("run message send thread");
@@ -69,10 +65,8 @@ public class TransMessageRunner implements ApplicationListener<ApplicationReadyE
                                 MessageQueue.putInDelayQueue(message);
                             }
                             continue;
-
                         } else {
-                            sendResult = rocketMqProducerService.synSend(message.getTopic(), message.getTag(),
-                                    message.getMessage());
+                            sendResult = rocketMqProducerService.synSend(message.getTopic(), message.getTag(), "", message.getMessage());
                             if (Objects.nonNull(sendResult) && SendStatus.SEND_OK.equals(sendResult.getSendStatus())) {
                                 mqTransMessageService.deleteById(message.getId());
                             } else {
@@ -80,15 +74,11 @@ public class TransMessageRunner implements ApplicationListener<ApplicationReadyE
                                 MessageQueue.priorityQueue.put(message);
                             }
                         }
-
                     }
-
                 } catch (Exception e) {
                     logger.warn("mq send fail,message={}",e.getMessage(),e);
                     MessageQueue.putInDelayQueue(message);
                 }
-
-
             }
         },"transMessage").start();
     }

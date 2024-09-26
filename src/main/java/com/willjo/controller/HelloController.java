@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Grio Vino
- * @since 2019/1/13 上午12:29
+ * @since 2024-09-26
  **/
 @RestController
 public class HelloController {

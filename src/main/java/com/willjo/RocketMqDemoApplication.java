@@ -23,10 +23,8 @@ public class RocketMqDemoApplication {
      * @param args 命令行参数，用于传递给Spring Boot应用程序
      */
     public static void main(String[] args) {
-    
         // 启动Spring Boot应用程序
         SpringApplication.run(RocketMqDemoApplication.class, args);
-        
         // 打印启动成功的消息
         System.out.println("start success");
     
