@@ -27,18 +27,15 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class MqTransMessageTask {
 
     private static final Logger logger = LoggerFactory.getLogger(MqTransMessageTask.class);
-    
-    @Autowired
-    private MqTransMessageService messageService;
-
-    @Autowired
-    private RocketMqProducerService rocketMqProducerService;
-
     /**
      * 每次获取消息数量
      */
     private static final int MAX_MESSAGE_NUM = 1000;
-    
+    @Autowired
+    private MqTransMessageService messageService;
+    @Autowired
+    private RocketMqProducerService rocketMqProducerService;
+
     @Scheduled(fixedDelay = 5 * 1000)
     public void sendMessage() {
         logger.info("====开始执行任务=====");

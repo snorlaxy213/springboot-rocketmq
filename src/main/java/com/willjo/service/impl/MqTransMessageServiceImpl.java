@@ -28,11 +28,10 @@ import java.util.Optional;
 @Service
 public class MqTransMessageServiceImpl extends ServiceImpl<MessageMapper, MqTransMessageEntity> implements MqTransMessageService {
 
+    private static final int MAX_MESSAGE_NUM = 1000;
     @Autowired
     private MessageMapper messageMapper;
 
-    private static final int MAX_MESSAGE_NUM = 1000;
-    
     @Override
     public MqTransMessageEntity selectById(Long id) {
         return super.selectById(id);

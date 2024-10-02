@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 public class HelloController {
-    
+
     @Autowired
     private UserService userService;
 

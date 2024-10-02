@@ -76,7 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         saveUser();
         LOGGER.info("begin transMessageError");
         mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_TAG,
-            "{\"userName\": \"WillJoError\"}");
+                "{\"userName\": \"WillJoError\"}");
         TimeUnit.SECONDS.sleep(10);
         LOGGER.info(" end transMessageError");
         throw new RuntimeException();

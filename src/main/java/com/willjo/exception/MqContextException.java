@@ -17,5 +17,5 @@ public class MqContextException extends Throwable {
 
     public MqContextException() {
     }
-    
+
 }

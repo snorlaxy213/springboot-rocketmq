@@ -17,7 +17,7 @@ public class RocketMqFactoryBeanConfig {
      * 创建RocketMq消费者
      *
      * @param configuration RocketMq配置属性，用于初始化消费者
-     * @param context 应用上下文，用于消费者在Spring环境中的集成
+     * @param context       应用上下文，用于消费者在Spring环境中的集成
      * @return 返回创建的RocketMq消费者实例
      */
     @Bean

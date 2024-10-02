@@ -13,7 +13,7 @@ import java.util.concurrent.LinkedBlockingDeque;
  * @since 2024-09-26
  */
 public class MessageQueue {
-    
+
     /**
      * 优先级最高的
      */
@@ -29,10 +29,9 @@ public class MessageQueue {
     }
 
     public static boolean putInDelayQueue(MqTransMessage transMessage) {
-        transMessage.setFailCount(transMessage.getFailCount()+1);
+        transMessage.setFailCount(transMessage.getFailCount() + 1);
         return delayQueue.add(MqTransMessageDelay.instance(transMessage));
     }
-
 
 
 }

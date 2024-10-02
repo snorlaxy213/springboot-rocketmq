@@ -3,8 +3,8 @@ package com.willjo.mq.listener;
 
 import com.willjo.annotation.RocketMqOrderListener;
 import com.willjo.enums.MqAction;
-import com.willjo.mq.command.MqConstant;
 import com.willjo.mq.MessageOrderListener;
+import com.willjo.mq.command.MqConstant;
 import com.willjo.util.MqMsgConvertUtil;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -28,11 +28,11 @@ public class MqOrderMessageRestListener implements MessageOrderListener {
             msg = MqMsgConvertUtil.bytes2String(message.getBody(), "UTF-8");
 
             LOGGER.info("MsgId:{},MQ消费,Topic:{},Tag:{}，Body:{}", message.getMsgId(),
-                message.getTopic(), message.getTags(), msg);
+                    message.getTopic(), message.getTags(), msg);
 
         } catch (Exception e) {
             LOGGER.error("MsgId:{},应用MQ消费失败,Topic:{},Tag:{}，Body:{},异常信息:{}", message.getMsgId(),
-                message.getTopic(), message.getTags(), msg, e);
+                    message.getTopic(), message.getTags(), msg, e);
             throw e;
         }
         return MqAction.CommitMessage;

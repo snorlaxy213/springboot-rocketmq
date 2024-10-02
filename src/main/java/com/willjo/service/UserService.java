@@ -12,7 +12,7 @@ import com.willjo.dal.entity.UserEntity;
  * @since 2019-02-23
  */
 public interface UserService extends IService<UserEntity> {
-    
+
     /**
      * 获取实体
      *

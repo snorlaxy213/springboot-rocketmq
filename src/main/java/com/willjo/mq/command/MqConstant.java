@@ -5,7 +5,7 @@ package com.willjo.mq.command;
  * @since 2024-09-26
  */
 public class MqConstant {
-    
+
     /**
      * top
      */
@@ -13,7 +13,7 @@ public class MqConstant {
         public static final String USER_ORDER_TOPIC = "USER_ORDER_TOPIC_TEST";
         public static final String PAY_TOPIC = "PAY_TOPIC";
     }
-    
+
     /**
      * TAG
      */
@@ -21,7 +21,7 @@ public class MqConstant {
         public static final String USER_TAG = "USER_TAG";
         public static final String PAY_TAG = "PAY_TAG";
     }
-    
+
     /**
      * consumeGroup 消费者
      */

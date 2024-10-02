@@ -1,12 +1,8 @@
 package com.willjo.annotation;
 
-import com.willjo.mq.MonitorQueue;
-import com.willjo.mq.RocketMqConsumerRunner;
 import com.willjo.config.RocketMqFactoryBeanConfig;
 import com.willjo.config.RocketMqProperties;
-import com.willjo.mq.RocketMqProducerService;
-import com.willjo.mq.TransDelayMessageRunner;
-import com.willjo.mq.TransMessageRunner;
+import com.willjo.mq.*;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

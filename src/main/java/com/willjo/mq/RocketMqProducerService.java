@@ -20,32 +20,32 @@ import java.util.Objects;
  * @since 2019/2/16 17:46
  */
 public class RocketMqProducerService {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(RocketMqProducerService.class);
-    
+
     private final RocketSendCallback rocketSendCallback = new RocketSendCallback();
     @Resource
     @Qualifier("defaultProducer")
     private DefaultMQProducer rocketProducer;
-    
+
     /**
      * 单边发送消息
      * 本方法负责将消息发送到指定的主题和标签下发送方式为单边发送，即发送消息后不等待响应
      * 主要用于对实时性要求不高，且不需知道发送结果的场景
      *
-     * @param topic 消息主题
-     * @param tag 消息标签，用于对消息进行分类
-     * @param keys 消息的键，用于唯一标识消息
+     * @param topic   消息主题
+     * @param tag     消息标签，用于对消息进行分类
+     * @param keys    消息的键，用于唯一标识消息
      * @param content 消息内容
      */
     public void sendOneway(String topic, String tag, String keys, String content) {
         try {
             // 创建Message对象
             Message msg = getMessage(topic, tag, keys, content);
-            
+
             // 发送消息
             rocketProducer.sendOneway(msg);
-            
+
             // 记录日志
             this.logMsg(msg);
         } catch (Exception e) {
@@ -54,17 +54,16 @@ public class RocketMqProducerService {
             throw new MqSendException(e);
         }
     }
-    
-    
+
+
     /**
      * 异步发送消息，默认回调函数
      * 本方法用于异步发送消息，并使用默认的回调函数处理发送结果
      *
-     * @param topic 消息主题
-     * @param tag 消息标签，用于区分不同类别的消息
-     * @param keys 消息的键，用于某些特定的路由分发
+     * @param topic   消息主题
+     * @param tag     消息标签，用于区分不同类别的消息
+     * @param keys    消息的键，用于某些特定的路由分发
      * @param content 消息内容
-     *
      * @throws MqSendException 如果消息发送失败，则抛出此异常
      */
     public void sendAsyncDefault(String topic, String tag, String keys, String content) {
@@ -82,19 +81,19 @@ public class RocketMqProducerService {
             throw new MqSendException(e);
         }
     }
-    
-    
+
+
     /**
      * 异步发送消息到指定的主题和标签
      *
-     * @param topic 消息主题
-     * @param tag 消息标签，用于进一步划分主题内的消息
-     * @param content 消息内容
-     * @param keys 用于分区路由的消息键
+     * @param topic        消息主题
+     * @param tag          消息标签，用于进一步划分主题内的消息
+     * @param content      消息内容
+     * @param keys         用于分区路由的消息键
      * @param sendCallback 回调接口，在消息发送完成后调用
-     *
-     * 注意：此方法通过异步方式发送消息，不会等待消息发送完成而是立即返回
-     * 如果需要同步等待发送结果，请使用 sendSync 方法
+     *                     <p>
+     *                     注意：此方法通过异步方式发送消息，不会等待消息发送完成而是立即返回
+     *                     如果需要同步等待发送结果，请使用 sendSync 方法
      */
     public void sendAsync(String topic, String tag, String content, String keys, SendCallback sendCallback) {
         try {
@@ -110,14 +109,14 @@ public class RocketMqProducerService {
             throw new MqSendException(e);
         }
     }
-    
+
     /**
      * 同步发送消息
      * 此方法将消息发送到指定的主题、标签和键下，适用于需要等待发送结果的场景
      *
-     * @param topic 消息主题，用于分类消息
-     * @param tag 消息标签，用于进一步细分消息
-     * @param keys 消息的键，用于路由消息到特定的队列
+     * @param topic   消息主题，用于分类消息
+     * @param tag     消息标签，用于进一步细分消息
+     * @param keys    消息的键，用于路由消息到特定的队列
      * @param content 消息的具体内容
      * @return SendResult 消息发送的结果，包含消息是否成功发送的信息
      * @throws MqSendException 当消息发送失败时抛出此异常
@@ -139,15 +138,15 @@ public class RocketMqProducerService {
             throw new MqSendException(e);
         }
     }
-    
+
     /**
      * 有顺序发送
      * 该方法用于在指定的主题、标签和键下，根据订单ID将消息发送到特定的消息队列中
      * 保证消息在处理时的有序性，适用于需要按特定顺序处理消息的场景
      *
-     * @param topic 消息主题，表示消息的类别
-     * @param tag 消息标签，用于进一步细分消息的类别
-     * @param keys 消息的键，可用于消息的路由
+     * @param topic   消息主题，表示消息的类别
+     * @param tag     消息标签，用于进一步细分消息的类别
+     * @param keys    消息的键，可用于消息的路由
      * @param content 消息内容，表示发送的具体信息
      * @param orderId 订单ID，用于确定消息发送的顺序
      * @return SendResult 发送结果，包含消息发送的状态和相关信息
@@ -157,7 +156,7 @@ public class RocketMqProducerService {
         try {
             // 构建消息对象
             Message msg = getMessage(topic, tag, keys, content);
-            
+
             // 发送消息，指定分区顺序消息的分区逻辑
             SendResult sendResult = rocketProducer
                     .send(msg, (List<MessageQueue> mqs, Message message, Object arg) -> {
@@ -166,7 +165,7 @@ public class RocketMqProducerService {
                                 return mqs.get(index);
                             }
                             , orderId);
-            
+
             // 记录消息发送日志
             this.logMsg(msg, sendResult);
             return sendResult;
@@ -176,13 +175,13 @@ public class RocketMqProducerService {
             throw new MqSendException(e);
         }
     }
-    
+
     /**
      * 构造一个Message对象
      *
-     * @param topic 消息主题，用于分类消息
-     * @param tag 消息标签，用于业务系统进一步细化消息类型
-     * @param keys 消息的键，通常用于唯一标识消息
+     * @param topic   消息主题，用于分类消息
+     * @param tag     消息标签，用于业务系统进一步细化消息类型
+     * @param keys    消息的键，通常用于唯一标识消息
      * @param content 消息内容，这里将内容转换为字节数组
      * @return 返回构造好的Message对象
      */
@@ -190,7 +189,7 @@ public class RocketMqProducerService {
         // 使用提供的参数构造并返回一个Message对象
         return new Message(topic, tag, keys, content.getBytes());
     }
-    
+
     /**
      * 打印消息topic等参数方便后续查找问题
      */
@@ -200,7 +199,7 @@ public class RocketMqProducerService {
                 message.getTags(),
                 message.getKeys());
     }
-    
+
     /**
      * 打印消息topic等参数方便后续查找问题
      */
@@ -211,7 +210,7 @@ public class RocketMqProducerService {
                 message.getKeys(),
                 Objects.nonNull(sendResult) ? sendResult : " result is null");
     }
-    
+
     static class RocketSendCallback implements SendCallback {
         /**
          * 当消息发送成功时调用的回调方法
@@ -225,7 +224,7 @@ public class RocketMqProducerService {
                     , sendResult.getMessageQueue().getTopic()
                     , sendResult.getMsgId());
         }
-        
+
         /**
          * 处理异常方法，当发送消息失败时调用
          *

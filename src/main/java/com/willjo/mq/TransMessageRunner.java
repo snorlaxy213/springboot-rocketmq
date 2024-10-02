@@ -20,19 +20,16 @@ import java.util.Objects;
  */
 public class TransMessageRunner implements ApplicationListener<ApplicationReadyEvent> {
 
-    private static final Logger logger = LoggerFactory.getLogger(TransMessageRunner.class);
-
-    @Autowired
-    private RocketMqProducerService rocketMqProducerService;
-
-    @Autowired
-    private MqTransMessageService mqTransMessageService;
-
     /**
      * 事务最大等待时间，单位为秒
      */
     public static final int TRANS_MAX_WAITING_TIME = 30;
-    
+    private static final Logger logger = LoggerFactory.getLogger(TransMessageRunner.class);
+    @Autowired
+    private RocketMqProducerService rocketMqProducerService;
+    @Autowired
+    private MqTransMessageService mqTransMessageService;
+
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         System.out.println("run message send thread");
@@ -56,7 +53,7 @@ public class TransMessageRunner implements ApplicationListener<ApplicationReadyE
                         if (Objects.isNull(mqTransMessageEntity)) {
                             // 没有值有三种可能姓 ，一种是事务没结束，一种事务没成功，或者已经被定时任务发送了
                             long time = System.currentTimeMillis() - message.getCreateTime().getTime();
-                            if(time / 1000 > TRANS_MAX_WAITING_TIME) {
+                            if (time / 1000 > TRANS_MAX_WAITING_TIME) {
                                 // 超过30秒还是查不到，就直接丢弃了，后面有定时任务兜底
                                 logger.info(" due to over 30 second, discard message for messageId={}", message.getId());
                             } else {
@@ -76,10 +73,10 @@ public class TransMessageRunner implements ApplicationListener<ApplicationReadyE
                         }
                     }
                 } catch (Exception e) {
-                    logger.warn("mq send fail,message={}",e.getMessage(),e);
+                    logger.warn("mq send fail,message={}", e.getMessage(), e);
                     MessageQueue.putInDelayQueue(message);
                 }
             }
-        },"transMessage").start();
+        }, "transMessage").start();
     }
 }

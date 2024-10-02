@@ -18,7 +18,7 @@ public class MqTransMessageDelay extends MqTransMessage implements Delayed {
      * 最大失败次数，超过这个次数，就让定时任务来发送好了
      */
     public static final int MAX_FAIL_COUNT = DELAY_TIME_WHEEL.length;
-    
+
     /**
      * 单位毫秒
      */
@@ -34,10 +34,18 @@ public class MqTransMessageDelay extends MqTransMessage implements Delayed {
         }
 
     }
-    
+
+    public static MqTransMessageDelay instance(MqTransMessage transMessage) {
+        return new MqTransMessageDelay(transMessage.getId(), transMessage.getTopic(),
+                transMessage.getTag(),
+                transMessage.getMessage(),
+                transMessage.getCreateTime(),
+                transMessage.getUpdateTime(), transMessage.getFailCount());
+    }
+
     @Override
     public long getDelay(TimeUnit unit) {
-        return unit.convert(delayTime-System.currentTimeMillis(), TimeUnit.MILLISECONDS);
+        return unit.convert(delayTime - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -51,13 +59,5 @@ public class MqTransMessageDelay extends MqTransMessage implements Delayed {
         } else {
             return -1;
         }
-    }
-
-    public static MqTransMessageDelay instance(MqTransMessage transMessage) {
-        return new MqTransMessageDelay(transMessage.getId(), transMessage.getTopic(),
-                transMessage.getTag(),
-                transMessage.getMessage(),
-                transMessage.getCreateTime(),
-                transMessage.getUpdateTime(), transMessage.getFailCount());
     }
 }

@@ -23,7 +23,7 @@ public class RocketMqProperties {
      * mq集群生产者id 如果不填使用实例名称
      */
     private String producerId;
-    
+
     public String getProducerId() {
         if (StringUtils.isBlank(producerId)) {
             throw new IllegalArgumentException("rocketmq.producerId 是必须的");

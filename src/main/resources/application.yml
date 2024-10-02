@@ -4,7 +4,7 @@ server:
 # NameServer地址 用;作为地址的分隔符
 rocketmq:
   namesrvAddr: 127.0.0.1:9876
-# 生产者的组名
+  # 生产者的组名
   producerId: product-test
 
 spring:
@@ -20,5 +20,3 @@ mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   # 实体扫描，多个package用逗号或者分号分隔
   type-aliases-package: com.willjo.dal.entity
-
-

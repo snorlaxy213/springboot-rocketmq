@@ -1,7 +1,8 @@
 package com.willjo.service;
 
-import com.willjo.dal.entity.MqTransMessageEntity;
 import com.baomidou.mybatisplus.service.IService;
+import com.willjo.dal.entity.MqTransMessageEntity;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -54,8 +55,8 @@ public interface MqTransMessageService extends IService<MqTransMessageEntity> {
     /**
      * 发送本地事务消息
      *
-     * @param topic topic
-     * @param tag tag
+     * @param topic   topic
+     * @param tag     tag
      * @param content content
      * @return true/false
      * @throws IllegalArgumentException topic 或者content 为空的时候抛出参数异常
@@ -64,4 +65,3 @@ public interface MqTransMessageService extends IService<MqTransMessageEntity> {
 
 
 }
-
