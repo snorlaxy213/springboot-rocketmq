@@ -71,7 +71,6 @@ public class MqTransMessageServiceImpl extends ServiceImpl<MessageMapper, MqTran
         return super.delete(wrapper);
     }
 
-
     @Override
     public Boolean transSendMsg(String topic, String tag, String content) {
         if (StringUtils.isBlank(topic)) {
@@ -80,13 +79,14 @@ public class MqTransMessageServiceImpl extends ServiceImpl<MessageMapper, MqTran
         if (StringUtils.isBlank(content)) {
             throw new IllegalArgumentException("content 不能为空");
         }
+        // 持久化数据
         MqTransMessageEntity msg = new MqTransMessageEntity();
         msg.setTopic(topic)
                 .setTag(tag)
                 .setMessage(content)
                 .setCreateTime(new Date());
         super.insert(msg);
+        // 放入优先级队列
         return MessageQueue.putInPriorityQueue(msg);
-
     }
 }

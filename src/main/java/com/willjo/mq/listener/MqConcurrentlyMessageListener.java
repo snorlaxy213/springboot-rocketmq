@@ -3,9 +3,8 @@ package com.willjo.mq.listener;
 
 import com.willjo.annotation.RocketMqListener;
 import com.willjo.enums.MqAction;
-import com.willjo.mq.MessageListener;
-import com.willjo.mq.command.MqConstant;
-import com.willjo.mq.command.MqConstant.ConsumeGroup;
+import com.willjo.mq.constant.MqConstant;
+import com.willjo.mq.constant.MqConstant.ConsumeGroup;
 import com.willjo.util.MqMsgConvertUtil;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -19,8 +18,7 @@ import org.slf4j.LoggerFactory;
 @RocketMqListener(topic = MqConstant.Top.PAY_TOPIC, consumerGroup = ConsumeGroup.PAY_GROUP)
 public class MqConcurrentlyMessageListener implements MessageListener {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(MqConcurrentlyMessageListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MqConcurrentlyMessageListener.class);
 
     @Override
     public MqAction consume(MessageExt message, ConsumeConcurrentlyContext context) {

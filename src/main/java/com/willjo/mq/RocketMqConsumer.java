@@ -5,6 +5,8 @@ import com.willjo.annotation.RocketMqListener;
 import com.willjo.annotation.RocketMqOrderListener;
 import com.willjo.config.RocketMqProperties;
 import com.willjo.enums.MqAction;
+import com.willjo.mq.listener.MessageListener;
+import com.willjo.mq.listener.MessageOrderListener;
 import com.willjo.util.GeneratorId;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -72,7 +74,7 @@ public class RocketMqConsumer {
                 String instanceName = System.currentTimeMillis() + GeneratorId.nextFormatId();
                 consumer.setInstanceName(instanceName);
                 consumer.start();
-                LOGGER.info(String.format("自建RocketMQ 成功加载 Topic-tag:%s", key));
+                LOGGER.info("自建RocketMQ 成功加载 Topic-tag:{}", key);
             } catch (MQClientException e) {
                 LOGGER.error(String.format("自建RocketMQ 加载失败 Topic-tag:%s", key), e);
                 throw new RuntimeException(e.getMessage(), e);
@@ -88,13 +90,11 @@ public class RocketMqConsumer {
     private void initializeConcurrentlyConsumer(Map<String, DefaultMQPushConsumer> map,
                                                 Map<String, String> topicMap, Map<String, String> consumerGroupMap)
             throws MQClientException {
-        Map<String, Object> beansWithAnnotationMap = context
-                .getBeansWithAnnotation(RocketMqListener.class);
+        Map<String, Object> beansWithAnnotationMap = context.getBeansWithAnnotation(RocketMqListener.class);
         for (Map.Entry<String, Object> entry : beansWithAnnotationMap.entrySet()) {
             // 获取到实例对象的class信息
             Class<?> classIns = entry.getValue().getClass();
-            RocketMqListener rocketMqListenerAnnotaion = classIns
-                    .getDeclaredAnnotation(RocketMqListener.class);
+            RocketMqListener rocketMqListenerAnnotaion = classIns.getDeclaredAnnotation(RocketMqListener.class);
             String topic = rocketMqListenerAnnotaion.topic();
             String tag = rocketMqListenerAnnotaion.tag();
             String consumerGroup = rocketMqListenerAnnotaion.consumerGroup();
@@ -129,7 +129,8 @@ public class RocketMqConsumer {
         }
     }
 
-    private void validate(Map<String, String> topicMap, Map<String, String> consumerGroupMap,
+    private void validate(Map<String, String> topicMap,
+                          Map<String, String> consumerGroupMap,
                           Class<?> classIns, String topic, String consumerGroup) {
         if (StringUtils.isBlank(topic)) {
             throw new RuntimeException(classIns.getSimpleName() + ":topic不能为空");
@@ -162,8 +163,7 @@ public class RocketMqConsumer {
         for (Map.Entry<String, Object> entry : beansWithAnnotationMap.entrySet()) {
             // 获取到实例对象的class信息
             Class<?> classIns = entry.getValue().getClass();
-            RocketMqOrderListener rocketMqListenerAnnotaion = classIns
-                    .getDeclaredAnnotation(RocketMqOrderListener.class);
+            RocketMqOrderListener rocketMqListenerAnnotaion = classIns.getDeclaredAnnotation(RocketMqOrderListener.class);
             String topic = rocketMqListenerAnnotaion.topic();
             String tag = rocketMqListenerAnnotaion.tag();
             String consumerGroup = rocketMqListenerAnnotaion.consumerGroup();

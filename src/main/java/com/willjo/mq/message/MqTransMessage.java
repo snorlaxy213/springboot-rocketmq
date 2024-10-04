@@ -1,4 +1,4 @@
-package com.willjo.message;
+package com.willjo.mq.message;
 
 import com.willjo.dal.entity.MqTransMessageEntity;
 import lombok.AllArgsConstructor;

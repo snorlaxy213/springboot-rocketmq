@@ -3,6 +3,10 @@ package com.willjo.annotation;
 import com.willjo.config.RocketMqFactoryBeanConfig;
 import com.willjo.config.RocketMqProperties;
 import com.willjo.mq.*;
+import com.willjo.mq.readyevent.MonitorQueueReadyEvent;
+import com.willjo.mq.readyevent.TransDelayMessageReadyEvent;
+import com.willjo.mq.readyevent.TransMessageReadyEvent;
+import com.willjo.mq.runner.RocketMqConsumerRunner;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -22,9 +26,9 @@ import java.lang.annotation.*;
         RocketMqProducerService.class,
         RocketMqProperties.class,
         RocketMqFactoryBeanConfig.class,
-        TransMessageRunner.class,
-        TransDelayMessageRunner.class,
-        MonitorQueue.class
+        TransMessageReadyEvent.class,
+        TransDelayMessageReadyEvent.class,
+        MonitorQueueReadyEvent.class
 })
 public @interface EnableRocketMq {
 

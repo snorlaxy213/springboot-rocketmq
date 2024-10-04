@@ -1,4 +1,4 @@
-package com.willjo.message;
+package com.willjo.mq.message;
 
 import java.util.Date;
 import java.util.concurrent.Delayed;

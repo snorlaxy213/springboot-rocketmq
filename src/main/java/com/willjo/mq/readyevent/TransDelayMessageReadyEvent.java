@@ -1,6 +1,7 @@
-package com.willjo.mq;
+package com.willjo.mq.readyevent;
 
-import com.willjo.message.MqTransMessageDelay;
+import com.willjo.mq.message.MqTransMessageDelay;
+import com.willjo.mq.MessageQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -10,9 +11,9 @@ import org.springframework.context.ApplicationListener;
  * @author Grio vino
  * @since 2024-09-26
  */
-public class TransDelayMessageRunner implements ApplicationListener<ApplicationReadyEvent> {
+public class TransDelayMessageReadyEvent implements ApplicationListener<ApplicationReadyEvent> {
 
-    private static final Logger logger = LoggerFactory.getLogger(TransDelayMessageRunner.class);
+    private static final Logger logger = LoggerFactory.getLogger(TransDelayMessageReadyEvent.class);
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {

@@ -14,14 +14,6 @@ import com.willjo.dal.entity.UserEntity;
 public interface UserService extends IService<UserEntity> {
 
     /**
-     * 获取实体
-     *
-     * @param id 实体ID
-     * @return 实体
-     */
-    UserEntity selectById(Long id);
-
-    /**
      * 新增用户
      */
     Boolean save(UserEntity userEntity);

@@ -1,7 +1,7 @@
 package com.willjo.task;
 
 import com.willjo.dal.entity.MqTransMessageEntity;
-import com.willjo.mq.MessageLock;
+import com.willjo.mq.constant.MessageLockConstant;
 import com.willjo.mq.RocketMqProducerService;
 import com.willjo.service.MqTransMessageService;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -43,7 +43,7 @@ public class MqTransMessageTask {
         LinkedBlockingDeque<Long> successIds = new LinkedBlockingDeque<>();
         // 如果执行期间宕机，那么这里会导致消息重发，单消费端必须要保证幂等
         list.parallelStream().forEach(messageEntity -> {
-            String key = MessageFormat.format(MessageLock.LOCK_PREFIX, messageEntity.getId());
+            String key = MessageFormat.format(MessageLockConstant.LOCK_PREFIX, messageEntity.getId());
             synchronized (key.intern()) {
                 SendResult sendResult = rocketMqProducerService
                         .synSend(messageEntity.getTopic(), messageEntity.getTag(), "", messageEntity.getMessage());
