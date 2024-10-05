@@ -10,10 +10,10 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RocketMqOrderListener(topic = MqConstant.Top.USER_ORDER_TOPIC, consumerGroup = MqConstant.ConsumeGroup.USER_ORDER_GROUP)
-public class MqOrderMessageRestListener implements MessageOrderListener {
+@RocketMqOrderListener(topic = MqConstant.Top.PAY_TOPIC, consumerGroup = MqConstant.ConsumeGroup.PAY_GROUP)
+public class MqUserOrderMessageListener implements MessageOrderListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MqOrderMessageRestListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MqUserOrderMessageListener.class);
 
     @Override
     public MqAction consume(MessageExt message, ConsumeOrderlyContext context) {

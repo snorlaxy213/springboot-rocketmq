@@ -23,7 +23,7 @@ import java.lang.annotation.*;
 @Import({
         RocketMqProperties.class,
         RocketMqConsumerRunner.class,
-        RocketMqProducerService.class,
+        RocketMqProducerUtil.class,
         RocketMqProperties.class,
         RocketMqFactoryBeanConfig.class,
         TransMessageReadyEvent.class,

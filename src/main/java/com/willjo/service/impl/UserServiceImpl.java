@@ -46,9 +46,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean transMessageSuccess() {
-        //保存用户信息
-        saveUser();
-
         //发送消息
         LOGGER.info("begin transMessageSuccess");
         mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_TAG, "{\"userName\": \"WillJoSuccess\"}");

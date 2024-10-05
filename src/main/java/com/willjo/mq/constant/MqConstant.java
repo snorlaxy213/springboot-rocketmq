@@ -3,7 +3,7 @@ package com.willjo.mq.constant;
 public class MqConstant {
 
     /**
-     * top
+     * Top
      */
     public static class Top {
         public static final String USER_ORDER_TOPIC = "USER_ORDER_TOPIC";
@@ -11,7 +11,7 @@ public class MqConstant {
     }
 
     /**
-     * TAG
+     * Tag
      */
     public static class Tag {
         public static final String USER_TAG = "USER_TAG";

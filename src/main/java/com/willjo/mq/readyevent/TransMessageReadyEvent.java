@@ -4,7 +4,7 @@ import com.willjo.dal.entity.MqTransMessageEntity;
 import com.willjo.mq.message.MqTransMessage;
 import com.willjo.mq.constant.MessageLockConstant;
 import com.willjo.mq.MessageQueue;
-import com.willjo.mq.RocketMqProducerService;
+import com.willjo.mq.RocketMqProducerUtil;
 import com.willjo.service.MqTransMessageService;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
@@ -31,7 +31,7 @@ public class TransMessageReadyEvent implements ApplicationListener<ApplicationRe
     public static final int TRANS_MAX_WAITING_TIME = 30;
 
     @Autowired
-    private RocketMqProducerService rocketMqProducerService;
+    private RocketMqProducerUtil rocketMqProducerUtil;
 
     @Autowired
     private MqTransMessageService mqTransMessageService;
@@ -75,7 +75,7 @@ public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
                         continue;
                     } else {
                         // 使用RocketMQ生产者同步发送消息
-                        sendResult = rocketMqProducerService.synSend(message.getTopic(), message.getTag(), "", message.getMessage());
+                        sendResult = rocketMqProducerUtil.synSend(message.getTopic(), message.getTag(), "", message.getMessage());
                         if (Objects.nonNull(sendResult) && SendStatus.SEND_OK.equals(sendResult.getSendStatus())) {
                             // 如果发送成功，从数据库中删除该消息
                             mqTransMessageService.deleteById(message.getId());

@@ -35,7 +35,7 @@ public class RocketMqFactoryBeanConfig {
      * @return 返回一个启动了的DefaultMQProducer实例
      * @throws Exception 如果配置错误可能会抛出异常
      */
-    @Bean
+    @Bean("defaultProducer")
     public DefaultMQProducer defaultProducer(RocketMqProperties configuration) throws Exception {
         // 检查Name Server地址是否配置，是的话则抛出异常
         if (configuration.getNamesrvAddr() == null) {
@@ -52,6 +52,4 @@ public class RocketMqFactoryBeanConfig {
         // 返回启动了的生产者实例
         return producer;
     }
-
-
 }

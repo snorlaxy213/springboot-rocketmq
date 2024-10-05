@@ -19,11 +19,12 @@ import java.util.Objects;
  * @author Grio Vino
  * @since 2019/2/16 17:46
  */
-public class RocketMqProducerService {
+public class RocketMqProducerUtil {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RocketMqProducerService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RocketMqProducerUtil.class);
 
     private final RocketSendCallback rocketSendCallback = new RocketSendCallback();
+
     @Resource
     @Qualifier("defaultProducer")
     private DefaultMQProducer rocketProducer;
