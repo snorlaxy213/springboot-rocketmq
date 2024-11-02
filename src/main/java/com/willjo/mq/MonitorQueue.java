@@ -4,6 +4,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 
 /**
+ * 监控队列：监控队列大小，避免队列过大导致内存溢出
+ *
  * @author Grio vino
  * @since 2024-09-26
  */

@@ -48,8 +48,7 @@ public class MqTransMessageTask {
         list.parallelStream().forEach(messageEntity -> {
             String key = MessageFormat.format(MessageLock.LOCK_PREFIX, messageEntity.getId());
             synchronized (key.intern()) {
-                SendResult sendResult = rocketMqProducerService
-                        .synSend(messageEntity.getTopic(), messageEntity.getTag(), "", messageEntity.getMessage());
+                SendResult sendResult = rocketMqProducerService.synSend(messageEntity.getTopic(), messageEntity.getTag(), "", messageEntity.getMessage());
                 if (SendStatus.SEND_OK.equals(sendResult.getSendStatus())) {
                     successIds.add(messageEntity.getId());
                 }

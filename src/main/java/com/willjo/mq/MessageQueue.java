@@ -15,7 +15,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class MessageQueue {
     
     /**
-     * 优先级最高的
+     * 优先级最高的队列
      */
     public static BlockingQueue<MqTransMessage> priorityQueue = new LinkedBlockingDeque<>();
 

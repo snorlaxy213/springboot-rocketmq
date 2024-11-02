@@ -24,7 +24,6 @@ import java.lang.annotation.*;
         RocketMqProperties.class,
         RocketMqConsumerRunner.class,
         RocketMqProducerService.class,
-        RocketMqProperties.class,
         RocketMqFactoryBeanConfig.class,
         TransMessageRunner.class,
         TransDelayMessageRunner.class,

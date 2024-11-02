@@ -35,19 +35,19 @@ public class TransMessageRunner implements ApplicationListener<ApplicationReadyE
     
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        System.out.println("run message send thread");
+        logger.info("run message send thread");
         new Thread(() -> {
             while (true) {
                 MqTransMessage message = null;
                 try {
                     message = MessageQueue.priorityQueue.take();
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ignored) {
 
                 }
                 if (Objects.isNull(message)) {
                     continue;
                 }
-                SendResult sendResult = null;
+                SendResult sendResult;
                 try {
                     String key = MessageFormat.format(MessageLock.LOCK_PREFIX, message.getId());
                     synchronized (key.intern()) {
@@ -64,7 +64,6 @@ public class TransMessageRunner implements ApplicationListener<ApplicationReadyE
                                 logger.info(" add message to delayQueue  for messageId={}", message.getId());
                                 MessageQueue.putInDelayQueue(message);
                             }
-                            continue;
                         } else {
                             sendResult = rocketMqProducerService.synSend(message.getTopic(), message.getTag(), "", message.getMessage());
                             if (Objects.nonNull(sendResult) && SendStatus.SEND_OK.equals(sendResult.getSendStatus())) {
