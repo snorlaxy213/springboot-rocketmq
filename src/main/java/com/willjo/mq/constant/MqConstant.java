@@ -1,4 +1,4 @@
-package com.willjo.mq.command;
+package com.willjo.mq.constant;
 
 /**
  * @author Grio Vino

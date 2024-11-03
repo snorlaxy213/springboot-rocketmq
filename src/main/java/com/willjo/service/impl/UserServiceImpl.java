@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.willjo.dal.entity.UserEntity;
 import com.willjo.dal.mapper.UserMapper;
 import com.willjo.exception.SaveUserException;
-import com.willjo.mq.command.MqConstant;
 import com.willjo.mq.constant.MqConstant;
 import com.willjo.service.MqTransMessageService;
 import com.willjo.service.UserService;
@@ -16,18 +15,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.security.SecureRandom;
 import java.util.concurrent.TimeUnit;
-import javax.annotation.Resource;
 
-/**
- * <p>
- * 服务实现类
- * </p>
- *
- * @author Grio Vino
- * @since 2019-02-23
- */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements UserService {
     
@@ -39,11 +30,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     @Resource
     @Qualifier(value = "mqTransMessageServiceImpl")
     private MqTransMessageService mqTransMessageService;
-    
-    @Override
-    public UserEntity selectById(Long id) {
-        return super.selectById(id);
-    }
     
     @Override
     @Transactional(rollbackFor = Exception.class)

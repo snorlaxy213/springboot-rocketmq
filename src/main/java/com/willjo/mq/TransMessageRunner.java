@@ -1,7 +1,8 @@
 package com.willjo.mq;
 
 import com.willjo.dal.entity.MqTransMessageEntity;
-import com.willjo.message.MqTransMessage;
+import com.willjo.mq.constant.MessageLockConstant;
+import com.willjo.mq.message.MqTransMessage;
 import com.willjo.service.MqTransMessageService;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
@@ -23,7 +24,7 @@ public class TransMessageRunner implements ApplicationListener<ApplicationReadyE
     private static final Logger logger = LoggerFactory.getLogger(TransMessageRunner.class);
 
     @Autowired
-    private RocketMqProducerService rocketMqProducerService;
+    private RocketMqProducerUtil rocketMqProducerUtil;
 
     @Autowired
     private MqTransMessageService mqTransMessageService;
@@ -49,7 +50,7 @@ public class TransMessageRunner implements ApplicationListener<ApplicationReadyE
                 }
                 SendResult sendResult;
                 try {
-                    String key = MessageFormat.format(MessageLock.LOCK_PREFIX, message.getId());
+                    String key = MessageFormat.format(MessageLockConstant.LOCK_PREFIX, message.getId());
                     synchronized (key.intern()) {
                         // 查询数据库确保是有值
                         MqTransMessageEntity mqTransMessageEntity = mqTransMessageService.selectById(message.getId());
@@ -65,7 +66,7 @@ public class TransMessageRunner implements ApplicationListener<ApplicationReadyE
                                 MessageQueue.putInDelayQueue(message);
                             }
                         } else {
-                            sendResult = rocketMqProducerService.synSend(message.getTopic(), message.getTag(), "", message.getMessage());
+                            sendResult = rocketMqProducerUtil.synSend(message.getTopic(), message.getTag(), "", message.getMessage());
                             if (Objects.nonNull(sendResult) && SendStatus.SEND_OK.equals(sendResult.getSendStatus())) {
                                 mqTransMessageService.deleteById(message.getId());
                             } else {

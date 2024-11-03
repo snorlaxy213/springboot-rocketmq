@@ -10,7 +10,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RocketMqOrderListener(topic = MqConstant.Top.PAY_TOPIC, consumerGroup = MqConstant.ConsumeGroup.PAY_GROUP)
+@RocketMqOrderListener(topic = MqConstant.Top.CONSOLE_USER_ORDER_TOPIC, consumerGroup = MqConstant.ConsumeGroup.CONSOLE_USER_GROUP)
 public class MqUserOrderMessageListener implements MessageOrderListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MqUserOrderMessageListener.class);
@@ -23,8 +23,7 @@ public class MqUserOrderMessageListener implements MessageOrderListener {
 
             LOGGER.info("MsgId:{},MQ消费,Topic:{},Tag:{}，Body:{}", message.getMsgId(), message.getTopic(), message.getTags(), msg);
         } catch (Exception e) {
-            LOGGER.error("MsgId:{},应用MQ消费失败,Topic:{},Tag:{}，Body:{},异常信息:{}",
-                    message.getMsgId(), message.getTopic(), message.getTags(), msg, e);
+            LOGGER.error("MsgId:{},应用MQ消费失败,Topic:{},Tag:{}，Body:{},异常信息:{}", message.getMsgId(), message.getTopic(), message.getTags(), msg, e.toString());
             throw e;
         }
         return MqAction.CommitMessage;
