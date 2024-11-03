@@ -12,14 +12,6 @@ import com.willjo.dal.entity.UserEntity;
  * @since 2019-02-23
  */
 public interface UserService extends IService<UserEntity> {
-    
-    /**
-     * 获取实体
-     *
-     * @param id 实体ID
-     * @return 实体
-     */
-    UserEntity selectById(Long id);
 
     /**
      * 新增用户

@@ -1,4 +1,4 @@
-package com.willjo.message;
+package com.willjo.mq.message;
 
 import com.willjo.dal.entity.MqTransMessageEntity;
 import lombok.AllArgsConstructor;
@@ -24,16 +24,16 @@ public class MqTransMessage implements Serializable {
     private String tag;
 
     private String message;
-    
+
     private Date createTime;
-    
+
     private Date updateTime;
 
     /**
      * 失败次数，根据这个来判断延迟时间和是否继续发送
      */
     private Integer failCount = 0;
-    
+
     /**
      * 根据MqTransMessageEntity对象创建MqTransMessage对象
      *
@@ -48,5 +48,5 @@ public class MqTransMessage implements Serializable {
                 messageEntity.getCreateTime(),
                 messageEntity.getUpdateTime(), 0);
     }
-    
+
 }

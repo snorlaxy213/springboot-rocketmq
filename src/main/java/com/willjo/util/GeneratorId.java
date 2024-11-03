@@ -22,19 +22,6 @@ import java.util.Enumeration;
  */
 
 public class GeneratorId {
-    
-    public static void main(String[] args) {
-
-        long a = System.currentTimeMillis();
-        for (int i = 0; i < 2000000; i++) {
-            nextFormatId();
-        }
-        System.out.println(System.currentTimeMillis() - a);
-
-        System.out.println(nextFormatId());
-        System.out.println(nextMillisId());
-
-    }
 
     /**
      * 流水号起始值
@@ -45,13 +32,13 @@ public class GeneratorId {
      */
     private static final long MAX_SEQUENCE = 99999L;
     /**
-     * 流水号，在最小最大值之间循环，避免唯一ID的安全性泄露，时间戳精确到毫秒，单机在1毫秒内也不可能生成近十万个业务ID
-     */
-    private static long sequence = MIN_SEQUENCE;
-    /**
      * 机器码 加 进程号 会导致生成的序列号很长, 基于这两个值做一些截取
      */
     private static final String MP;
+    /**
+     * 流水号，在最小最大值之间循环，避免唯一ID的安全性泄露，时间戳精确到毫秒，单机在1毫秒内也不可能生成近十万个业务ID
+     */
+    private static long sequence = MIN_SEQUENCE;
 
     static {
         try {
@@ -76,14 +63,25 @@ public class GeneratorId {
     private GeneratorId() {
     }
 
-    ;
+    public static void main(String[] args) {
+
+        long a = System.currentTimeMillis();
+        for (int i = 0; i < 2000000; i++) {
+            nextFormatId();
+        }
+        System.out.println(System.currentTimeMillis() - a);
+
+        System.out.println(nextFormatId());
+        System.out.println(nextMillisId());
+
+    }
 
     /**
      * 全局唯一ID生成器，31位：17位毫秒时间戳（格式化后）+9位机器码和进程号+5位循环序列号
      */
     public static synchronized String nextFormatId() {
         return DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmssSSS") + MP
-            + nextSequence();
+                + nextSequence();
     }
 
     /**
@@ -113,7 +111,7 @@ public class GeneratorId {
         try {
             StringBuilder stringBuilder = new StringBuilder();
             Enumeration<NetworkInterface> networkInterfaces = NetworkInterface
-                .getNetworkInterfaces();
+                    .getNetworkInterfaces();
             while (networkInterfaces.hasMoreElements()) {
                 NetworkInterface networkInterface = networkInterfaces.nextElement();
                 stringBuilder.append(networkInterface.toString());

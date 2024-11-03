@@ -1,4 +1,4 @@
-package com.willjo.mq;
+package com.willjo.mq.listener;
 
 import com.willjo.enums.MqAction;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
@@ -16,5 +16,5 @@ public interface MessageOrderListener {
     /**
      * mq 消费接口
      */
-    MqAction consume(MessageExt var1, ConsumeOrderlyContext context);
+    MqAction consume(MessageExt messageExt, ConsumeOrderlyContext context);
 }

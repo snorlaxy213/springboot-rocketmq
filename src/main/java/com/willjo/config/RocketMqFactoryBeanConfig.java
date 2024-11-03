@@ -17,7 +17,7 @@ public class RocketMqFactoryBeanConfig {
      * 创建RocketMq消费者
      *
      * @param configuration RocketMq配置属性，用于初始化消费者
-     * @param context 应用上下文，用于消费者在Spring环境中的集成
+     * @param context       应用上下文，用于消费者在Spring环境中的集成
      * @return 返回创建的RocketMq消费者实例
      */
     @Bean
@@ -35,7 +35,7 @@ public class RocketMqFactoryBeanConfig {
      * @return 返回一个启动了的DefaultMQProducer实例
      * @throws Exception 如果配置错误可能会抛出异常
      */
-    @Bean
+    @Bean("defaultProducer")
     public DefaultMQProducer defaultProducer(RocketMqProperties configuration) throws Exception {
         // 检查Name Server地址是否配置，是的话则抛出异常
         if (configuration.getNamesrvAddr() == null) {
@@ -52,6 +52,4 @@ public class RocketMqFactoryBeanConfig {
         // 返回启动了的生产者实例
         return producer;
     }
-
-
 }

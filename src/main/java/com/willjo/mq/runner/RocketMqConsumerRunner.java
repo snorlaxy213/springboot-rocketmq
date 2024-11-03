@@ -1,5 +1,6 @@
-package com.willjo.mq;
+package com.willjo.mq.runner;
 
+import com.willjo.mq.RocketMqConsumer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;

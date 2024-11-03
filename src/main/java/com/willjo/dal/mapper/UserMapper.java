@@ -1,7 +1,7 @@
 package com.willjo.dal.mapper;
 
-import com.willjo.dal.entity.UserEntity;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.willjo.dal.entity.UserEntity;
 
 /**
  * 用户数据访问接口，继承自通用的基础数据访问接口

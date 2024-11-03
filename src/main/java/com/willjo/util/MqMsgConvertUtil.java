@@ -24,7 +24,7 @@ public class MqMsgConvertUtil {
     }
 
     public static Serializable objectDeserialize(byte[] bytes)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         ObjectInputStream ois = new ObjectInputStream(bais);
         ois.close();
@@ -41,7 +41,6 @@ public class MqMsgConvertUtil {
             try {
                 bs = s.getBytes(charset);
             } catch (Exception var4) {
-                ;
             }
 
             return bs;
@@ -57,7 +56,6 @@ public class MqMsgConvertUtil {
             try {
                 s = new String(bs, charset);
             } catch (Exception var4) {
-                ;
             }
 
             return s;

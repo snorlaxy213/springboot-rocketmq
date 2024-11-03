@@ -26,7 +26,7 @@ public class UserEntity extends Model<UserEntity> {
     private String username;
 
     private Integer age;
-    
+
     /**
      * 主键值
      */

@@ -1,9 +1,11 @@
 package com.willjo.controller;
 
 import com.willjo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -12,13 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 public class HelloController {
-    
-    @Autowired
+
+    @Resource
+    @Qualifier("userServiceImpl")
     private UserService userService;
 
     @GetMapping("/trans/test")
     public Boolean transTest() throws Exception {
         return userService.transMessageSuccess();
+    }
 
+    @GetMapping("/trans/error")
+    public Boolean transError() throws Exception {
+        return userService.transMessageError();
     }
 }
