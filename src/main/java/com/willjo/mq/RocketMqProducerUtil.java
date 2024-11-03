@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author Grio Vino
- * @since 2019/2/16 17:46
+ * 发送队列工具类
+ *
  */
 public class RocketMqProducerUtil {
 

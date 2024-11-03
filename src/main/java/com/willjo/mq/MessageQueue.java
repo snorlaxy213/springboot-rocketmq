@@ -19,20 +19,20 @@ public class MessageQueue {
     /**
      * 优先级最高的队列
      */
-    public static BlockingQueue<MqTransMessage> priorityQueue = new LinkedBlockingDeque<>();
+    public final static BlockingQueue<MqTransMessage> priorityQueue = new LinkedBlockingDeque<>();
 
     /**
      * 延迟队列
      */
-    public static DelayQueue<MqTransMessageDelay> delayQueue = new DelayQueue<>();
+    public final static DelayQueue<MqTransMessageDelay> delayQueue = new DelayQueue<>();
 
     public static boolean putInPriorityQueue(MqTransMessageEntity mqTransMessageEntity) {
         return priorityQueue.add(MqTransMessage.instance(mqTransMessageEntity));
     }
 
-    public static boolean putInDelayQueue(MqTransMessage transMessage) {
+    public static void putInDelayQueue(MqTransMessage transMessage) {
         transMessage.setFailCount(transMessage.getFailCount() + 1);
-        return delayQueue.add(MqTransMessageDelay.instance(transMessage));
+        delayQueue.add(MqTransMessageDelay.instance(transMessage));
     }
 
 

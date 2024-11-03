@@ -25,8 +25,6 @@ public class RocketMqDemoApplication {
     public static void main(String[] args) {
         // 启动Spring Boot应用程序
         SpringApplication.run(RocketMqDemoApplication.class, args);
-        // 打印启动成功的消息
-        System.out.println("start success");
     }
 
 }

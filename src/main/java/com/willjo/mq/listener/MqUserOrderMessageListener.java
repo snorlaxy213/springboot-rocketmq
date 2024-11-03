@@ -10,7 +10,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RocketMqOrderListener(topic = MqConstant.Top.CONSOLE_USER_ORDER_TOPIC, consumerGroup = MqConstant.ConsumeGroup.CONSOLE_USER_GROUP)
+@RocketMqOrderListener(topic = MqConstant.Top.CONSOLE_USER_ORDER_TOPIC, consumerGroup = MqConstant.ConsumeGroup.CONSOLE_USER_ORDER_GROUP)
 public class MqUserOrderMessageListener implements MessageOrderListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MqUserOrderMessageListener.class);

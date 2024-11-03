@@ -47,7 +47,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         
         //发送消息
         LOGGER.info("begin transMessageSuccess");
-        mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_TAG, JSONUtil.toJsonStr(userEntity));
+        mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_ORDER_TAG, JSONUtil.toJsonStr(userEntity));
         LOGGER.info("end transMessageSuccess");
         return Boolean.TRUE;
     }
@@ -95,10 +95,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
 
         //发送消息
         LOGGER.info("begin transMessageError");
-        mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_TAG,
+        mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_ORDER_TAG,
                 "{\"userName\": \"WillJoError\"}");
         TimeUnit.SECONDS.sleep(10);
-        mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_TAG, "{\"userName\": \"WillJoError\"}");
+        mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_ORDER_TAG, "{\"userName\": \"WillJoError\"}");
         LOGGER.info(" end transMessageError");
         throw new RuntimeException();
     }
