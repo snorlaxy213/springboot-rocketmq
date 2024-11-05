@@ -16,5 +16,5 @@ public interface MessageListener {
     /**
      * mq 消费接口
      */
-    MqAction consume(MessageExt var1, ConsumeConcurrentlyContext context);
+    MqAction consume(MessageExt messageExt, ConsumeConcurrentlyContext context);
 }

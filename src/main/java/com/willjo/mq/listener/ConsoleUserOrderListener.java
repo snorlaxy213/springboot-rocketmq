@@ -1,7 +1,7 @@
 package com.willjo.mq.listener;
 
 
-import com.willjo.annotation.RocketMqListener;
+import com.willjo.annotation.RocketMqOrderListener;
 import com.willjo.enums.MqAction;
 import com.willjo.mq.constant.MqConstant;
 import com.willjo.util.MqMsgConvertUtil;
@@ -10,10 +10,10 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RocketMqListener(topic = MqConstant.Top.USER_ORDER_TOPIC, consumerGroup = MqConstant.ConsumeGroup.USER_ORDER_GROUP)
-public class MqUserMessageListener implements MessageListener {
+@RocketMqOrderListener(topic = MqConstant.Top.CONSOLE_USER_ORDER_TOPIC, consumerGroup = MqConstant.ConsumeGroup.CONSOLE_USER_ORDER_GROUP)
+public class ConsoleUserOrderListener implements MessageListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MqUserMessageListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleUserOrderListener.class);
 
     @Override
     public MqAction consume(MessageExt message, ConsumeConcurrentlyContext context) {
@@ -28,6 +28,6 @@ public class MqUserMessageListener implements MessageListener {
         }
         return MqAction.CommitMessage;
     }
-
-
+    
+    
 }

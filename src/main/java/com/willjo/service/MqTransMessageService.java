@@ -50,7 +50,7 @@ public interface MqTransMessageService extends IService<MqTransMessageEntity> {
      * @return true/false
      * @throws NullPointerException ids 为空的时候返回
      */
-    Boolean del(Collection<Long> ids);
+    Boolean deleteByIds(Collection<Long> ids);
 
     /**
      * 发送本地事务消息

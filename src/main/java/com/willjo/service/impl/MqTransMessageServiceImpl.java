@@ -62,7 +62,7 @@ public class MqTransMessageServiceImpl extends ServiceImpl<MessageMapper, MqTran
     }
 
     @Override
-    public Boolean del(Collection<Long> ids) {
+    public Boolean deleteByIds(Collection<Long> ids) {
         if (CollectionUtils.isEmpty(ids)) {
             throw new NullPointerException("ids 不能为空");
         }

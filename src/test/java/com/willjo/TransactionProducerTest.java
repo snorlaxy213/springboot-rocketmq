@@ -20,10 +20,18 @@ public class TransactionProducerTest {
      * 测试本地事务成功的时候发送消息也成功
      */
     @Test
-    @Rollback(value = false)
+    @Rollback(value = true)
     public void testSuccess() {
-        userService.transMessageSuccess();
-        System.out.println("发送结束");
+        //记录开始时间
+        long start = System.currentTimeMillis();
+        //测试1000次
+        for (int i = 0; i < 1000; i++) {
+            userService.transMessageSuccess();
+        }
+        //记录结束时间
+        long end = System.currentTimeMillis();
+        //计算程序执行时间
+        System.out.println("程序执行时间: " + (end - start) + "ms");
     }
 
     /**
@@ -33,6 +41,5 @@ public class TransactionProducerTest {
     @Rollback(value = false)
     public void testError() throws Exception {
         userService.transMessageError();
-        System.out.println("发送结束");
     }
 }

@@ -1,22 +1,22 @@
 package com.willjo.mq.listener;
 
 
-import com.willjo.annotation.RocketMqOrderListener;
+import com.willjo.annotation.RocketMqListener;
 import com.willjo.enums.MqAction;
 import com.willjo.mq.constant.MqConstant;
 import com.willjo.util.MqMsgConvertUtil;
-import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RocketMqOrderListener(topic = MqConstant.Top.CONSOLE_USER_ORDER_TOPIC, consumerGroup = MqConstant.ConsumeGroup.CONSOLE_USER_ORDER_GROUP)
-public class MqUserOrderMessageListener implements MessageOrderListener {
+@RocketMqListener(topic = MqConstant.Top.USER_ORDER_TOPIC, consumerGroup = MqConstant.ConsumeGroup.USER_ORDER_GROUP)
+public class UserOrderListener implements MessageListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MqUserOrderMessageListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserOrderListener.class);
 
     @Override
-    public MqAction consume(MessageExt message, ConsumeOrderlyContext context) {
+    public MqAction consume(MessageExt message, ConsumeConcurrentlyContext context) {
         String msg = null;
         try {
             msg = MqMsgConvertUtil.bytes2String(message.getBody(), "UTF-8");
@@ -28,6 +28,6 @@ public class MqUserOrderMessageListener implements MessageOrderListener {
         }
         return MqAction.CommitMessage;
     }
-    
-    
+
+
 }

@@ -41,14 +41,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     @Transactional(rollbackFor = Exception.class)
     public Boolean transMessageSuccess() {
         //保存用户信息
-        LOGGER.info("begin saveUser");
         UserEntity userEntity = saveUser();
-        LOGGER.info("end saveUser");
         
         //发送消息
-        LOGGER.info("begin transMessageSuccess");
         mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_ORDER_TAG, JSONUtil.toJsonStr(userEntity));
-        LOGGER.info("end transMessageSuccess");
         return Boolean.TRUE;
     }
     

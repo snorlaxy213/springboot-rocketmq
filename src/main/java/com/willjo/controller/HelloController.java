@@ -21,7 +21,17 @@ public class HelloController {
 
     @GetMapping("/trans/test")
     public Boolean transTest() throws Exception {
-        return userService.transMessageSuccess();
+        //记录开始时间
+        long start = System.currentTimeMillis();
+        //测试1000次
+        for (int i = 0; i < 1000; i++) {
+            userService.transMessageSuccess();
+        }
+        //记录结束时间
+        long end = System.currentTimeMillis();
+        //计算程序执行时间
+        System.out.println("程序执行时间: " + (end - start) + "ms");
+        return Boolean.TRUE;
     }
 
     @GetMapping("/trans/error")

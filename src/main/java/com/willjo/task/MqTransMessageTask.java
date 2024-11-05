@@ -9,6 +9,7 @@ import org.apache.rocketmq.client.producer.SendStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -35,9 +36,8 @@ public class MqTransMessageTask {
     @Autowired
     private RocketMqProducerUtil rocketMqProducerUtil;
 
-//    @Scheduled(fixedDelay = 5 * 1000)
+    @Scheduled(fixedDelay = 5 * 1000)
     public void sendMessage() {
-        logger.info("====开始执行任务=====");
         List<MqTransMessageEntity> list = messageService.list(MAX_MESSAGE_NUM);
         LinkedBlockingDeque<Long> successIds = new LinkedBlockingDeque<>();
         // 如果执行期间宕机，那么这里会导致消息重发，单消费端必须要保证幂等
@@ -52,7 +52,7 @@ public class MqTransMessageTask {
         });
         // 发送成功删除
         if (!CollectionUtils.isEmpty(successIds)) {
-            messageService.del(successIds);
+            messageService.deleteByIds(successIds);
         }
     }
 }
