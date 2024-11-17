@@ -4,8 +4,9 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -14,7 +15,8 @@ import java.io.Serializable;
  * @author Grio Vino
  * @since 2019-02-23
  */
-@Data
+@Getter
+@Setter
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 @TableName("user")

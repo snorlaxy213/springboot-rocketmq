@@ -39,7 +39,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     public Boolean save10000user() {
         for (int i = 0; i < 50; i++) {
             //保存用户信息
-            asyncUserService.saveUser();
+            asyncUserService.saveVirtualUser();
             
             //发送消息
 //        mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_ORDER_TAG, JSONUtil.toJsonStr(userEntity));

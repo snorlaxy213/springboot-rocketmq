@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 @Service("asyncUserServiceImpl")
@@ -23,7 +24,7 @@ public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> im
     
     @Override
     @Async("UserImportExecutor")
-    public void saveUser() {
+    public void saveVirtualUser() {
         //记录开始时间
         long start = System.currentTimeMillis();
         for (int i = 0; i < 200; i++) {
@@ -32,6 +33,28 @@ public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> im
             userEntity.setUsername(generateSecureUsername());
             // 随机生成userEntity的Age
             userEntity.setAge(secureRandom.nextInt(100) + 1);
+            // 保存
+            try {
+                boolean saved = super.insert(userEntity);
+                if (!saved) {
+                    throw new SaveUserException("Failed to save user");
+                }
+            } catch (Exception e) {
+                // 记录异常日志
+                LOGGER.error("Failed to save user: ", e);
+                throw new SaveUserException("Failed to save user", e);
+            }
+        }
+        //记录结束时间
+        long end = System.currentTimeMillis();
+        LOGGER.info("线程名：{}，程序执行时间: {}ms", Thread.currentThread().getName(), end - start);
+    }
+    
+    @Override
+    public void saveUser(List<UserEntity> userEntities) {
+        //记录开始时间
+        long start = System.currentTimeMillis();
+        for (UserEntity userEntity : userEntities) {
             // 保存
             try {
                 boolean saved = super.insert(userEntity);
