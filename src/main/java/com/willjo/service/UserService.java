@@ -24,14 +24,5 @@ public interface UserService extends IService<UserEntity> {
      * @return true/false
      */
     Boolean transMessageSuccess();
-
-    /**
-     * 发送事务消息事务
-     *
-     * @return true/false
-     * @throws Exception 故意抛个异常回滚本地事务
-     */
-    Boolean transMessageError() throws Exception;
-
-
+    
 }
