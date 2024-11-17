@@ -74,9 +74,9 @@ public class RocketMqConsumer {
                 String instanceName = System.currentTimeMillis() + GeneratorId.nextFormatId();
                 consumer.setInstanceName(instanceName);
                 consumer.start();
-                LOGGER.info("自建RocketMQ 成功加载 Topic-tag:{}", key);
+                LOGGER.info("RocketMQ 成功加载 Topic-tag:{}", key);
             } catch (MQClientException e) {
-                LOGGER.error(String.format("自建RocketMQ 加载失败 Topic-tag:%s", key), e);
+                LOGGER.error(String.format("RocketMQ 加载失败 Topic-tag:%s", key), e);
                 throw new RuntimeException(e.getMessage(), e);
             }
         });

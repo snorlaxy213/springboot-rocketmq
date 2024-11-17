@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.util.concurrent.Semaphore;
 
 @Service("asyncUserServiceImpl")
 public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements AsyncUserService {
@@ -20,6 +21,7 @@ public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> im
     
     private final SecureRandom secureRandom = new SecureRandom();
     
+    @Override
     @Async("UserImportExecutor")
     public void saveUser() {
         //记录开始时间
@@ -45,6 +47,27 @@ public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> im
         //记录结束时间
         long end = System.currentTimeMillis();
         LOGGER.info("线程名：{}，程序执行时间: {}ms", Thread.currentThread().getName(), end - start);
+    }
+    
+    @Override
+    @Async("UserImportExecutor")
+    public void updateAge(Semaphore semaphore) {
+        try {
+            //获取信号量
+            semaphore.acquire();
+            
+            //获取Age
+            UserEntity userEntity = selectById(96196);
+            
+            //更新Age
+            userEntity.setAge(userEntity.getAge() + 1);
+            updateById(userEntity);
+            
+            //释放信号量
+            semaphore.release();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
     
     /**

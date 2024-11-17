@@ -11,10 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.security.SecureRandom;
+import java.util.concurrent.Semaphore;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements UserService {
@@ -36,19 +36,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     private AsyncUserService asyncUserService;
     
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Boolean save(UserEntity userEntity) {
-        return super.insert(userEntity);
-    }
-    
-    @Override
-    public Boolean transMessageSuccess() {
+    public Boolean save10000user() {
         for (int i = 0; i < 50; i++) {
             //保存用户信息
             asyncUserService.saveUser();
             
             //发送消息
 //        mqTransMessageService.transSendMsg(MqConstant.Top.USER_ORDER_TOPIC, MqConstant.Tag.USER_ORDER_TAG, JSONUtil.toJsonStr(userEntity));
+        }
+        return Boolean.TRUE;
+    }
+    
+    /**
+     * 10个线程同时调用获取Age，自增加一
+     *
+     * @return true/false
+     */
+    @Override
+    public Boolean update10Age() {
+        Semaphore semaphore = new Semaphore(1);
+        for (int i = 0; i < 10; i++) {
+            asyncUserService.updateAge(semaphore);
         }
         return Boolean.TRUE;
     }

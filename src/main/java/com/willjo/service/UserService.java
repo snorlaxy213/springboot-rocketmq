@@ -14,15 +14,17 @@ import com.willjo.dal.entity.UserEntity;
 public interface UserService extends IService<UserEntity> {
 
     /**
-     * 新增用户
-     */
-    Boolean save(UserEntity userEntity);
-
-    /**
      * 发送事务消息成功
      *
      * @return true/false
      */
-    Boolean transMessageSuccess();
+    Boolean save10000user();
+    
+    /**
+     * 10个线程同时调用获取Age，自增加一
+     *
+     * @return true/false
+     */
+    Boolean update10Age();
     
 }
