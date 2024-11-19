@@ -7,10 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-/**
- * @author Grio Vino
- * @since 2019/2/16 17:46
- */
 @EnableRocketMq
 @SpringBootApplication(scanBasePackages = "com.willjo")
 @MapperScan("com.willjo.dal.mapper")

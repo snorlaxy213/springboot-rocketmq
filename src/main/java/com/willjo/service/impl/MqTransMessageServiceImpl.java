@@ -1,22 +1,14 @@
 package com.willjo.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.google.common.collect.Lists;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.willjo.dal.entity.MqTransMessageEntity;
 import com.willjo.dal.mapper.MessageMapper;
 import com.willjo.mq.MessageQueue;
 import com.willjo.service.MqTransMessageService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 
 /**
@@ -28,47 +20,9 @@ import java.util.Optional;
 @Service
 public class MqTransMessageServiceImpl extends ServiceImpl<MessageMapper, MqTransMessageEntity> implements MqTransMessageService {
 
-    private static final int MAX_MESSAGE_NUM = 1000;
-    @Autowired
-    private MessageMapper messageMapper;
-
     @Override
     public MqTransMessageEntity selectById(Long id) {
-        return super.selectById(id);
-    }
-
-    @Override
-    public Boolean save(MqTransMessageEntity messageEntity) {
-        return super.insert(messageEntity);
-    }
-
-    @Override
-    public MqTransMessageEntity getByMsgId(String msgid) {
-        Wrapper<MqTransMessageEntity> wrapper = new EntityWrapper<>();
-        wrapper.where("MsgId={0}", msgid);
-        return super.selectOne(wrapper);
-    }
-
-    @Override
-    public List<MqTransMessageEntity> list(int limit) {
-        if (limit <= 0 || limit > MAX_MESSAGE_NUM) {
-            throw new IllegalArgumentException("参数不合法，limit  必须在0和" + MAX_MESSAGE_NUM + "之间");
-        }
-        Wrapper<MqTransMessageEntity> wrapper = new EntityWrapper<>();
-        wrapper.orderBy("id", true);
-        wrapper.last("limit " + limit);
-        List<MqTransMessageEntity> list = super.selectList(wrapper);
-        return Optional.ofNullable(list).orElse(Lists.newArrayList());
-    }
-
-    @Override
-    public Boolean deleteByIds(Collection<Long> ids) {
-        if (CollectionUtils.isEmpty(ids)) {
-            throw new NullPointerException("ids 不能为空");
-        }
-        Wrapper<MqTransMessageEntity> wrapper = new EntityWrapper<>();
-        wrapper.in("id", ids);
-        return super.delete(wrapper);
+        return super.getById(id);
     }
 
     @Override
@@ -85,7 +39,7 @@ public class MqTransMessageServiceImpl extends ServiceImpl<MessageMapper, MqTran
                 .setTag(tag)
                 .setMessage(content)
                 .setCreateTime(new Date());
-        super.insert(msg);
+        super.save(msg);
         // 放入优先级队列
         return MessageQueue.putInPriorityQueue(msg);
     }

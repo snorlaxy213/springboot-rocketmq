@@ -35,13 +35,9 @@ public class UserController {
     }
     
     @PostMapping("/uploadUserExcel")
-    public Boolean uploadExcel(@RequestParam("file") MultipartFile file) {
-        try {
-            //通过EasyExcel把file中的数据解析出来
-            EasyExcel.read(file.getInputStream(), UserEntity.class, new UserListener(asyncUserService)).sheet().doRead();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public Boolean uploadExcel(@RequestParam("file") MultipartFile file) throws IOException {
+        //通过EasyExcel把file中的数据解析出来
+        EasyExcel.read(file.getInputStream(), UserEntity.class, new UserListener(asyncUserService)).sheet().doRead();
         return Boolean.TRUE;
     }
     

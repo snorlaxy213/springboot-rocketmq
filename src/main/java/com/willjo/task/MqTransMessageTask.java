@@ -27,18 +27,15 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class MqTransMessageTask {
 
     private static final Logger logger = LoggerFactory.getLogger(MqTransMessageTask.class);
-    /**
-     * 每次获取消息数量
-     */
-    private static final int MAX_MESSAGE_NUM = 1000;
+
     @Autowired
     private MqTransMessageService messageService;
     @Autowired
     private RocketMqProducerUtil rocketMqProducerUtil;
 
-    @Scheduled(fixedDelay = 5 * 1000)
+//    @Scheduled(fixedDelay = 5 * 1000)
     public void sendMessage() {
-        List<MqTransMessageEntity> list = messageService.list(MAX_MESSAGE_NUM);
+        List<MqTransMessageEntity> list = messageService.list();
         LinkedBlockingDeque<Long> successIds = new LinkedBlockingDeque<>();
         // 如果执行期间宕机，那么这里会导致消息重发，单消费端必须要保证幂等
         list.parallelStream().forEach(messageEntity -> {
@@ -52,7 +49,7 @@ public class MqTransMessageTask {
         });
         // 发送成功删除
         if (!CollectionUtils.isEmpty(successIds)) {
-            messageService.deleteByIds(successIds);
+            messageService.removeByIds(successIds);
         }
     }
 }

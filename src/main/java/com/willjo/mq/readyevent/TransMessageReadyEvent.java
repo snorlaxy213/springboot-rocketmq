@@ -1,10 +1,10 @@
 package com.willjo.mq.readyevent;
 
 import com.willjo.dal.entity.MqTransMessageEntity;
-import com.willjo.mq.message.MqTransMessage;
-import com.willjo.mq.constant.MessageLockConstant;
 import com.willjo.mq.MessageQueue;
 import com.willjo.mq.RocketMqProducerUtil;
+import com.willjo.mq.constant.MessageLockConstant;
+import com.willjo.mq.message.MqTransMessage;
 import com.willjo.service.MqTransMessageService;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
@@ -73,7 +73,7 @@ public class TransMessageReadyEvent implements ApplicationListener<ApplicationRe
                             sendResult = rocketMqProducerUtil.synSend(message.getTopic(), message.getTag(), "", message.getMessage());
                             if (Objects.nonNull(sendResult) && SendStatus.SEND_OK.equals(sendResult.getSendStatus())) {
                                 // 如果发送成功，从数据库中删除该消息
-                                mqTransMessageService.deleteById(message.getId());
+                                mqTransMessageService.removeById(message.getId());
                             } else {
                                 // 如果发送失败（例如网络问题），将消息重新放入优先级队列进行发送
                                 MessageQueue.priorityQueue.put(message);

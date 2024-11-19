@@ -1,7 +1,7 @@
 package com.willjo.service.impl;
 
 
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.willjo.dal.entity.UserEntity;
 import com.willjo.dal.mapper.UserMapper;
 import com.willjo.service.AsyncUserService;
