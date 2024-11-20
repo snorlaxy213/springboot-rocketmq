@@ -19,12 +19,10 @@ public interface UserService extends IService<UserEntity> {
      * @return true/false
      */
     Boolean save10000user();
-    
+
     /**
      * 10个线程同时调用获取Age，自增加一
-     *
-     * @return true/false
      */
-    Boolean update10Age();
-    
+    void update10Age();
+
 }

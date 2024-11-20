@@ -2,7 +2,7 @@ package com.willjo.annotation;
 
 import com.willjo.config.RocketMqFactoryBeanConfig;
 import com.willjo.config.RocketMqProperties;
-import com.willjo.mq.*;
+import com.willjo.mq.RocketMqProducerUtil;
 import com.willjo.mq.readyevent.MonitorQueueReadyEvent;
 import com.willjo.mq.readyevent.TransDelayMessageReadyEvent;
 import com.willjo.mq.readyevent.TransMessageReadyEvent;

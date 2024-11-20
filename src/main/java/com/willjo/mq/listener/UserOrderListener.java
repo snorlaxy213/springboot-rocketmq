@@ -2,7 +2,7 @@ package com.willjo.mq.listener;
 
 
 import com.willjo.annotation.RocketMqListener;
-import com.willjo.enums.MqAction;
+import com.willjo.dal.enums.MqAction;
 import com.willjo.mq.constant.MqConstant;
 import com.willjo.util.MqMsgConvertUtil;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;

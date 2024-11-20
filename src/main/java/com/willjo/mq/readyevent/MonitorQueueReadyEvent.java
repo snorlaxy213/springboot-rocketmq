@@ -17,13 +17,11 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class MonitorQueueReadyEvent implements ApplicationListener<ApplicationReadyEvent> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MonitorQueueReadyEvent.class);
-
     // 队列最大值
     public static final int MAX_PRIORITY_QUEUE_SIZE = 1000;
-
     // 延迟队列最大值
     public static final int MAX_DELAY_QUEUE_SIZE = 1000;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MonitorQueueReadyEvent.class);
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {

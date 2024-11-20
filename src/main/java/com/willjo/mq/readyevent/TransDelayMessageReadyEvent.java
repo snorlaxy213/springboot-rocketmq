@@ -1,7 +1,7 @@
 package com.willjo.mq.readyevent;
 
-import com.willjo.mq.message.MqTransMessageDelay;
 import com.willjo.mq.MessageQueue;
+import com.willjo.mq.message.MqTransMessageDelay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

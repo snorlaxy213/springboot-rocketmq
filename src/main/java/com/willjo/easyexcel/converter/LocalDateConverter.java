@@ -17,6 +17,14 @@ import java.util.Date;
  **/
 public class LocalDateConverter implements Converter<LocalDate> {
 
+    // 将Excel日期转换为Java日期
+    public static LocalDate convertExcelDateToJavaDate(long excelDate) {
+        // Excel中的日期起点为1900-01-01
+        Date date = new Date(((excelDate - 1) * 24 * 60 * 60 * 1000));
+        // Date转化为LocalDate
+        return date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+    }
+
     @Override
     public Class<LocalDate> supportJavaTypeKey() {
         return LocalDate.class;
@@ -31,7 +39,7 @@ public class LocalDateConverter implements Converter<LocalDate> {
     public LocalDate convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
         String stringValue = cellData.getStringValue();
         BigDecimal numberValue = cellData.getNumberValue();
-        return convertExcelDateToJavaDate(stringValue != null? Long.parseLong(stringValue) : numberValue.longValue());
+        return convertExcelDateToJavaDate(stringValue != null ? Long.parseLong(stringValue) : numberValue.longValue());
     }
 
     @Override
@@ -39,15 +47,4 @@ public class LocalDateConverter implements Converter<LocalDate> {
                                                GlobalConfiguration globalConfiguration) {
         return new WriteCellData<String>(value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
-
-    // 将Excel日期转换为Java日期
-    public static LocalDate convertExcelDateToJavaDate(long excelDate) {
-        // Excel中的日期起点为1900-01-01
-        Date date = new Date(((excelDate - 1) * 24 * 60 * 60 * 1000));
-        // Date转化为LocalDate
-        return date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-    }
 }
-
-
-

@@ -16,11 +16,7 @@ import java.util.Enumeration;
  * <p>
  * 全局唯一ID生成器，27位：13位毫秒数时间戳（无格式化）+9位机器码和进程号+5位循环序列号
  * </p>
- *
- * @author Grio Vino
- * @since 2024-09-26
  */
-
 public class GeneratorId {
 
     /**
@@ -58,22 +54,6 @@ public class GeneratorId {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private GeneratorId() {
-    }
-
-    public static void main(String[] args) {
-
-        long a = System.currentTimeMillis();
-        for (int i = 0; i < 2000000; i++) {
-            nextFormatId();
-        }
-        System.out.println(System.currentTimeMillis() - a);
-
-        System.out.println(nextFormatId());
-        System.out.println(nextMillisId());
-
     }
 
     /**

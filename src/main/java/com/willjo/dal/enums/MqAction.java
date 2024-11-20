@@ -1,4 +1,4 @@
-package com.willjo.enums;
+package com.willjo.dal.enums;
 
 
 /**

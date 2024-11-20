@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import com.willjo.annotation.RocketMqListener;
 import com.willjo.annotation.RocketMqOrderListener;
 import com.willjo.config.RocketMqProperties;
-import com.willjo.enums.MqAction;
+import com.willjo.dal.enums.MqAction;
 import com.willjo.mq.listener.MessageListener;
 import com.willjo.mq.listener.MessageOrderListener;
 import com.willjo.util.GeneratorId;
@@ -32,10 +32,9 @@ import java.util.Map;
 public class RocketMqConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RocketMqConsumer.class);
-
+    private final RocketMqProperties configuration;
     public ApplicationContext context;
     private volatile boolean init = false;
-    private final RocketMqProperties configuration;
     private Map<String, DefaultMQPushConsumer> consumerMap;
 
     public RocketMqConsumer(RocketMqProperties configuration, ApplicationContext context) {
@@ -86,8 +85,8 @@ public class RocketMqConsumer {
     /**
      * 初始化普通消息消费者
      *
-     * @param map 消费者映射表，用于存储初始化后的消费者实例
-     * @param topicMap 主题映射表，用于存储主题与类名的对应关系
+     * @param map              消费者映射表，用于存储初始化后的消费者实例
+     * @param topicMap         主题映射表，用于存储主题与类名的对应关系
      * @param consumerGroupMap 消费组映射表，用于存储消费组与类名的对应关系
      * @throws MQClientException 如果消费者初始化失败，抛出此异常
      */
@@ -171,8 +170,8 @@ public class RocketMqConsumer {
      * 初始化有序消息消费者
      * 该方法用于初始化RocketMQ的有序消息消费者，包括解析注解、创建消费者实例、设置消费者属性和注册消息监听器
      *
-     * @param map 消费者实例的映射表，key为消费者标识，value为消费者实例
-     * @param topicMap 主题映射表，key为主题，value为主题对应的类名
+     * @param map              消费者实例的映射表，key为消费者标识，value为消费者实例
+     * @param topicMap         主题映射表，key为主题，value为主题对应的类名
      * @param consumerGroupMap 消费者组映射表，key为消费者组，value为消费者组对应的类名
      * @throws MQClientException 初始化消费者时可能抛出的异常
      */

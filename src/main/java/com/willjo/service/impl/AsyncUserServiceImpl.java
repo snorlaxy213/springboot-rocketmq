@@ -20,14 +20,15 @@ import java.util.concurrent.Semaphore;
 
 @Service("asyncUserServiceImpl")
 public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements AsyncUserService {
-    
-    private static final Logger LOGGER = LoggerFactory.getLogger(AsyncUserServiceImpl.class);
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AsyncUserServiceImpl.class);
+    private final SecureRandom secureRandom = new SecureRandom();
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
-    
-    private final SecureRandom secureRandom = new SecureRandom();
-    
+
+    /**
+     * 保存虚拟用户
+     */
     @Override
     @Async("UserImportExecutor")
     public void saveVirtualUser() {
@@ -53,12 +54,17 @@ public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> im
         }
         //记录结束时间
         long end = System.currentTimeMillis();
-        LOGGER.info("线程名：{}，程序执行时间: {}ms", Thread.currentThread().getName(), end - start);
+        LOGGER.info("方法名：保存虚拟用户，线程名：{}，程序执行时间: {}ms", Thread.currentThread().getName(), end - start);
     }
-    
+
+    /**
+     * 批量保存用户
+     *
+     * @param userEntities 用户
+     */
     @Override
     @Async("UserImportExecutor")
-    public void saveUser(List<UserEntity> userEntities) {
+    public void batchSaveUser(List<UserEntity> userEntities) {
         //记录开始时间
         long start = System.currentTimeMillis();
         MybatisBatch<UserEntity> mybatisBatch = new MybatisBatch<>(sqlSessionFactory, userEntities);
@@ -66,32 +72,38 @@ public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> im
         mybatisBatch.execute(method.get("userBatchInsert"));
         //记录结束时间
         long end = System.currentTimeMillis();
-        LOGGER.info("线程名：{}，程序执行时间: {}ms", Thread.currentThread().getName(), end - start);
+        LOGGER.info("方法名：批量保存用户，线程名：{}，程序执行时间: {}ms", Thread.currentThread().getName(), end - start);
     }
-    
+
+    /**
+     * 10个线程同时调用获取Age，自增加一
+     *
+     * @param semaphore 信号量
+     */
     @Override
     @Async("UserImportExecutor")
     public void updateAge(Semaphore semaphore) {
         try {
             //获取信号量
             semaphore.acquire();
-            
+
             //获取Age
             UserEntity userEntity = getById(96196);
-            
+
             //更新Age
             userEntity.setAge(userEntity.getAge() + 1);
             updateById(userEntity);
-            
+
             //释放信号量
             semaphore.release();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
-    
+
     /**
      * 返回随机生成的用户名
+     *
      * @return 随机生成的用户名
      */
     private String generateSecureUsername() {

@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 @Configuration
 public class SpringBootConfig {
-    
+
     @Bean("UserImportExecutor")
     public ThreadPoolTaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

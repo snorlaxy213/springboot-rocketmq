@@ -2,11 +2,6 @@ package com.willjo.util;
 
 import java.io.*;
 
-
-/**
- * @author Grio Vino
- * @since 2024-09-26
- **/
 public class MqMsgConvertUtil {
 
     public static final byte[] EMPTY_BYTES = new byte[0];

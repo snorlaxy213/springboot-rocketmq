@@ -1,6 +1,6 @@
 package com.willjo.mq.listener;
 
-import com.willjo.enums.MqAction;
+import com.willjo.dal.enums.MqAction;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.common.message.MessageExt;
 

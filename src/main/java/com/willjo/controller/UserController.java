@@ -19,7 +19,7 @@ public class UserController {
     @Resource
     @Qualifier("userServiceImpl")
     private UserService userService;
-    
+
     @Resource
     @Qualifier("asyncUserServiceImpl")
     private AsyncUserService asyncUserService;
@@ -28,17 +28,17 @@ public class UserController {
     public Boolean save10000user() {
         return userService.save10000user();
     }
-    
+
     @GetMapping("/update10Age")
     public Boolean update10Age() {
         return userService.update10Age();
     }
-    
+
     @PostMapping("/uploadUserExcel")
     public Boolean uploadExcel(@RequestParam("file") MultipartFile file) throws IOException {
         //通过EasyExcel把file中的数据解析出来
         EasyExcel.read(file.getInputStream(), UserEntity.class, new UserListener(asyncUserService)).sheet().doRead();
         return Boolean.TRUE;
     }
-    
+
 }

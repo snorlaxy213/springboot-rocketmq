@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,10 +20,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * @author Grio Vino
- * @since 2024-09-26
- */
 public class DateUtilsPlus extends DateUtils {
 
     public static final String DATE_BASIC_STYLE = "yyyy-MM-dd HH:mm:ss";

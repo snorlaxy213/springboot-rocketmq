@@ -17,7 +17,6 @@ import java.util.Objects;
 
 /**
  * 发送队列工具类
- *
  */
 public class RocketMqProducerUtil {
 

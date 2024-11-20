@@ -2,7 +2,7 @@ package com.willjo.mq.listener;
 
 
 import com.willjo.annotation.RocketMqOrderListener;
-import com.willjo.enums.MqAction;
+import com.willjo.dal.enums.MqAction;
 import com.willjo.mq.constant.MqConstant;
 import com.willjo.util.MqMsgConvertUtil;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
@@ -28,6 +28,6 @@ public class ConsoleUserOrderListener implements MessageListener {
         }
         return MqAction.CommitMessage;
     }
-    
-    
+
+
 }

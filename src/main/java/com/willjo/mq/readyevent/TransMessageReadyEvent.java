@@ -22,7 +22,7 @@ import java.util.Objects;
  * @since 2024-09-26
  */
 public class TransMessageReadyEvent implements ApplicationListener<ApplicationReadyEvent> {
-    
+
     /**
      * 事务最大等待时间，单位为秒
      */
@@ -30,10 +30,10 @@ public class TransMessageReadyEvent implements ApplicationListener<ApplicationRe
     private static final Logger logger = LoggerFactory.getLogger(TransMessageReadyEvent.class);
     @Autowired
     private RocketMqProducerUtil rocketMqProducerUtil;
-    
+
     @Autowired
     private MqTransMessageService mqTransMessageService;
-    
+
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         new Thread(() -> {
@@ -88,5 +88,5 @@ public class TransMessageReadyEvent implements ApplicationListener<ApplicationRe
             }
         }, "transMessage").start();
     }
-    
+
 }

@@ -9,7 +9,6 @@ import org.apache.rocketmq.client.producer.SendStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -33,7 +32,7 @@ public class MqTransMessageTask {
     @Autowired
     private RocketMqProducerUtil rocketMqProducerUtil;
 
-//    @Scheduled(fixedDelay = 5 * 1000)
+    //    @Scheduled(fixedDelay = 5 * 1000)
     public void sendMessage() {
         List<MqTransMessageEntity> list = messageService.list();
         LinkedBlockingDeque<Long> successIds = new LinkedBlockingDeque<>();

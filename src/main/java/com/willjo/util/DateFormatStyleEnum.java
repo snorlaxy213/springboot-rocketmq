@@ -2,10 +2,6 @@ package com.willjo.util;
 
 import lombok.Getter;
 
-/**
- * @author Grio Vino
- * @since 2024-09-26
- */
 @Getter
 public enum DateFormatStyleEnum {
 

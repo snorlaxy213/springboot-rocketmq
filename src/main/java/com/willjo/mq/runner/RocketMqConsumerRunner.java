@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 
 /**
  * spring 启动成功后初始化消费者
- *
  */
 public class RocketMqConsumerRunner implements ApplicationRunner {
 
