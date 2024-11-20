@@ -11,11 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-/**
- * Easy Excel User解析
- *
- * @author Chen Jiaying
- */
 public class UserListener extends AnalysisEventListener<UserEntity> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserListener.class);
