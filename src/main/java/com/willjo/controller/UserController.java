@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/update10Age")
-    public Boolean update10Age() {
-        return userService.update10Age();
+    public void update10Age() {
+        userService.update10Age();
     }
 
     @PostMapping("/uploadUserExcel")

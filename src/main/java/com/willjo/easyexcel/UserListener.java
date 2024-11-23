@@ -16,9 +16,9 @@ public class UserListener extends AnalysisEventListener<UserEntity> {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserListener.class);
 
     /**
-     * 每隔300条存储数据库，然后清理list，方便内存回收
+     * 每隔5000条存储数据库，然后清理list，方便内存回收
      */
-    private static final int BATCH_COUNT = 300;
+    private static final int BATCH_COUNT = 20000;
 
     /**
      * 缓存的数据
@@ -49,7 +49,7 @@ public class UserListener extends AnalysisEventListener<UserEntity> {
         if (cachedDataList.size() >= BATCH_COUNT) {
             // 存储数据库
             asyncUserService.batchSaveUser(cachedDataList);
-            // 存储完成清理 list
+            // 清理集合便于GC回收
             cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
         }
     }

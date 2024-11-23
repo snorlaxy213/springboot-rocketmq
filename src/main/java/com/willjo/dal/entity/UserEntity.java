@@ -12,9 +12,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@Accessors(chain = true)
-@EqualsAndHashCode(callSuper = false)
-@TableName("user")
+@TableName("sys_user")
 public class UserEntity extends Model<UserEntity> {
 
     @TableId(value = "id", type = IdType.AUTO)

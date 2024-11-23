@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.util.List;
@@ -22,9 +23,14 @@ import java.util.concurrent.Semaphore;
 public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements AsyncUserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AsyncUserServiceImpl.class);
+
     private final SecureRandom secureRandom = new SecureRandom();
+
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
+
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * 保存虚拟用户
@@ -60,16 +66,15 @@ public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> im
     /**
      * 批量保存用户
      *
-     * @param userEntities 用户
+     * @param users 用户
      */
     @Override
     @Async("UserImportExecutor")
-    public void batchSaveUser(List<UserEntity> userEntities) {
+    @Transactional(rollbackFor = Exception.class)
+    public void batchSaveUser(List<UserEntity> users) {
         //记录开始时间
         long start = System.currentTimeMillis();
-        MybatisBatch<UserEntity> mybatisBatch = new MybatisBatch<>(sqlSessionFactory, userEntities);
-        MybatisBatch.Method<UserEntity> method = new MybatisBatch.Method<>(UserMapper.class);
-        mybatisBatch.execute(method.get("userBatchInsert"));
+        userMapper.userBatchInsert2(users);
         //记录结束时间
         long end = System.currentTimeMillis();
         LOGGER.info("方法名：批量保存用户，线程名：{}，程序执行时间: {}ms", Thread.currentThread().getName(), end - start);
