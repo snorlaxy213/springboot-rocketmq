@@ -1,13 +1,12 @@
 package com.willjo.service.impl;
 
 
-import com.baomidou.mybatisplus.core.batch.MybatisBatch;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.willjo.dal.entity.UserEntity;
 import com.willjo.dal.mapper.UserMapper;
 import com.willjo.exception.SaveUserException;
 import com.willjo.service.AsyncUserService;
-import org.apache.ibatis.session.SqlSessionFactory;
+import com.willjo.util.GeneratorId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +23,6 @@ public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> im
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AsyncUserServiceImpl.class);
 
-    private final SecureRandom secureRandom = new SecureRandom();
-
-    @Autowired
-    private SqlSessionFactory sqlSessionFactory;
-
     @Autowired
     private UserMapper userMapper;
 
@@ -43,9 +37,9 @@ public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> im
         for (int i = 0; i < 200; i++) {
             UserEntity userEntity = new UserEntity();
             // 使用更安全的随机生成方法
-            userEntity.setUsername(generateSecureUsername());
+            userEntity.setUsername(GeneratorId.generateSecureUsername());
             // 随机生成userEntity的Age
-            userEntity.setAge(secureRandom.nextInt(100) + 1);
+            userEntity.setAge(new SecureRandom().nextInt(100) + 1);
             // 保存
             try {
                 boolean saved = super.save(userEntity);
@@ -104,19 +98,5 @@ public class AsyncUserServiceImpl extends ServiceImpl<UserMapper, UserEntity> im
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * 返回随机生成的用户名
-     *
-     * @return 随机生成的用户名
-     */
-    private String generateSecureUsername() {
-        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        StringBuilder sb = new StringBuilder(10);
-        for (int i = 0; i < 10; i++) {
-            sb.append(allowedChars.charAt(secureRandom.nextInt(allowedChars.length())));
-        }
-        return sb.toString();
     }
 }

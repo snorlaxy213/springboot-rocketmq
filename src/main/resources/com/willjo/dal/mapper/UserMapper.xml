@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.willjo.dal.mapper.UserMapper">
 
-    <!--<insert id="userBatchInsert2" parameterType="java.util.List">
+    <insert id="userBatchInsert2" parameterType="java.util.List">
         insert into user (username,age)
         values
         <foreach collection="users" item="item" separator=",">
             (#{item.username}, #{item.age})
         </foreach>
-    </insert>-->
+    </insert>
 
 </mapper>

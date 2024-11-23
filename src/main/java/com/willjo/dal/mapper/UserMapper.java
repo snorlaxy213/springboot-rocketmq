@@ -14,13 +14,5 @@ public interface UserMapper extends BaseMapper<UserEntity> {
     @Insert("insert into sys_user(username,age) values( #{username}, #{age})")
     int userBatchInsert(UserEntity user);
 
-    @Insert({
-        "<script>",
-        "insert into sys_user (`username`,`age`) values",
-        "<foreach collection='users' item='item' separator=','>",
-        "(#{item.username}, #{item.age})",
-        "</foreach>",
-        "</script>"
-    })
     void userBatchInsert2(@Param("users") List<UserEntity> users);
 }

@@ -134,4 +134,18 @@ public class GeneratorId {
         return processId;
     }
 
+    /**
+     * 返回随机生成的用户名
+     *
+     * @return 随机生成的用户名
+     */
+    public static String generateSecureUsername() {
+        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder(10);
+        for (int i = 0; i < 10; i++) {
+            sb.append(allowedChars.charAt(new SecureRandom().nextInt(allowedChars.length())));
+        }
+        return sb.toString();
+    }
+
 }
